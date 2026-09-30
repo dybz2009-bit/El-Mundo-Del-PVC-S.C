@@ -3,197 +3,255 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Store - Sistema Integrado</title>
+  <title>El Mundo del PVC - Sistema de Gestión Comercial</title>
   <style>
     :root {
-      --bg-color: #121214;
-      --card-bg: #1e1e24;
-      --accent: #2563eb;
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --accent-blue: #2563eb;
       --accent-green: #10b981;
       --accent-gold: #f59e0b;
       --accent-red: #ef4444;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --border: #2d2d35;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; }
-    
-    #login-screen { max-width: 360px; margin: 60px auto; background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
-    input, select, textarea { width: 100%; padding: 10px; margin-top: 6px; margin-bottom: 12px; background: #121214; border: 1px solid var(--border); color: #fff; border-radius: 6px; font-size: 14px; }
-    
-    button { width: 100%; padding: 11px; background: var(--accent); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 4px; }
+
+    /* LOGIN */
+    #login-screen {
+      max-width: 380px;
+      margin: 50px auto;
+      background: var(--card-bg);
+      padding: 28px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .logo-badge {
+      width: 70px; height: 70px; background: var(--accent-gold); color: #000;
+      font-weight: 900; font-size: 22px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; margin: 0 auto 12px;
+      border: 3px solid #fff; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    input, select {
+      width: 100%; padding: 11px; margin-top: 5px; margin-bottom: 12px;
+      background: #090d16; border: 1px solid var(--border-color);
+      color: #fff; border-radius: 8px; font-size: 14px; outline: none;
+    }
+    input:focus, select:focus { border-color: var(--accent-blue); }
+
+    button {
+      width: 100%; padding: 12px; background: var(--accent-blue); color: white;
+      border: none; border-radius: 8px; font-weight: 700; font-size: 14px;
+      cursor: pointer; transition: background 0.2s;
+    }
+    button:active { transform: scale(0.98); }
     button.btn-green { background: var(--accent-green); }
     button.btn-gold { background: var(--accent-gold); color: #000; }
-    button.btn-danger { background: var(--accent-red); width: auto; padding: 6px 12px; }
+    button.btn-danger { background: var(--accent-red); width: auto; padding: 6px 12px; font-size: 12px; }
 
-    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
-    .nav-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
-    .tab-btn { padding: 8px 14px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; white-space: nowrap; cursor: pointer; }
-    .tab-btn.active { background: var(--accent); color: white; font-weight: bold; border-color: var(--accent); }
+    /* HEADER */
+    .header-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px; background: var(--card-bg); padding: 12px 16px;
+      border-radius: 12px; border: 1px solid var(--border-color);
+    }
+    .brand-title { font-size: 18px; font-weight: 800; color: #fff; }
+    .brand-sub { font-size: 11px; color: var(--accent-gold); font-weight: 600; }
+
+    /* NAVEGACIÓN */
+    .nav-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px; }
+    .tab-btn {
+      flex: 1; min-width: 100px; padding: 10px; background: var(--card-bg);
+      border: 1px solid var(--border-color); color: var(--text-muted);
+      border-radius: 10px; font-weight: 600; font-size: 12px; text-align: center; cursor: pointer; white-space: nowrap;
+    }
+    .tab-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    .card { background: var(--card-bg); padding: 16px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 16px; }
-    .card h3 { margin-bottom: 12px; color: var(--accent-gold); font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    /* TARJETAS */
+    .card {
+      background: var(--card-bg); padding: 16px; border-radius: 14px;
+      border: 1px solid var(--border-color); margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 15px; color: var(--accent-gold); margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color); padding-bottom: 6px;
+    }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-    th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
-    th { background: #121214; color: var(--accent-gold); }
-    .prod-img { width: 45px; height: 45px; object-fit: cover; border-radius: 4px; background: #222; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 
-    .results-box { background: #121214; padding: 12px; border-radius: 8px; border: 1px dashed var(--accent-gold); margin-top: 12px; }
-    .res-line { display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; }
-    .res-total { font-size: 16px; font-weight: bold; color: var(--accent-green); border-top: 1px solid var(--border); padding-top: 6px; margin-top: 6px; }
+    /* RESULTADOS */
+    .results-box {
+      background: #090d16; padding: 14px; border-radius: 10px;
+      border: 1px solid var(--accent-gold); margin-top: 14px;
+    }
+    .res-line { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
+    .res-line.highlight { color: var(--accent-gold); font-weight: bold; font-size: 14px; }
+    .res-total { font-size: 17px; font-weight: 800; color: var(--accent-green); border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 8px; }
 
-    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-    .prod-card { background: #121214; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
-    .prod-card img { width: 100%; height: 110px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; }
-    .price-tag { color: var(--accent-green); font-weight: bold; font-size: 15px; }
-    .badge-wholesale { background: #1e3a8a; color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-size: 10px; display: inline-block; margin-top: 4px; }
-    
-    .mode-selector { background: #121214; padding: 8px; border-radius: 6px; border: 1px solid var(--accent); margin-bottom: 12px; }
+    /* TABLA DE PRODUCTOS */
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+    th, td { padding: 8px 6px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th { background: #090d16; color: var(--accent-gold); font-weight: 700; }
+    .prod-img { width: 42px; height: 42px; object-fit: cover; border-radius: 6px; background: #334155; }
+
+    /* CATÁLOGOS */
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 10px; }
+    .prod-card { background: #090d16; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px; text-align: center; }
+    .prod-card img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; }
+    .price-tag { color: var(--accent-green); font-weight: 800; font-size: 15px; }
+    .badge-cat { background: #1e3a8a; color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; display: inline-block; margin-top: 3px; }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
+  <!-- PANTALLA ACCESO -->
   <div id="login-screen">
-    <h2>World Store</h2>
-    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Sistema de Cotizaciones e Inventario</p>
-    <input type="password" id="login-pass" placeholder="Contraseña de acceso">
+    <div class="logo-badge">EMP</div>
+    <h2 style="font-size: 20px; font-weight: 800; color: #fff;">El Mundo del PVC</h2>
+    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 18px;">San Cristóbal - La Concordia</p>
+    <input type="password" id="login-pass" placeholder="Ingresa la clave de acceso" onkeypress="if(event.key==='Enter') login()">
     <button onclick="login()">Ingresar al Sistema</button>
   </div>
 
-  <!-- PANEL PRINCIPAL -->
+  <!-- SISTEMA PRINCIPAL -->
   <div id="app-screen" style="display: none;">
+    
     <div class="header-bar">
       <div>
-        <h2 style="color: #fff; font-size: 18px;">World Store PVC & Mas</h2>
-        <span style="font-size: 11px; color: var(--accent-gold);">San Cristóbal - La Concordia</span>
+        <div class="brand-title">El Mundo del PVC</div>
+        <div class="brand-sub">San Cristóbal - La Concordia</div>
       </div>
-      <button class="btn-danger" onclick="logout()">Cerrar Sesión</button>
+      <button class="btn-danger" onclick="logout()">Salir</button>
     </div>
 
-    <!-- PESTAÑAS -->
+    <!-- PESTAÑAS NAVEGACIÓN -->
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('tab-cotizador', this)">Cotizador PVC</button>
-      <button class="tab-btn" onclick="switchTab('tab-almayor', this)">Precios al Mayor</button>
-      <button class="tab-btn" onclick="switchTab('tab-inventario', this)">Inventario</button>
-      <button class="tab-btn" onclick="switchTab('tab-gastos', this)">Gastos y Socios</button>
+      <div class="tab-btn active" onclick="switchTab('tab-cotizador', this)">Cotizador PVC</div>
+      <div class="tab-btn" onclick="switchTab('tab-detal', this)">Venta Detal / Catálogo</div>
+      <div class="tab-btn" onclick="switchTab('tab-almayor', this)">Precios Mayor</div>
+      <div class="tab-btn" onclick="switchTab('tab-inventario', this)">Gestión Inventario</div>
+      <div class="tab-btn" onclick="switchTab('tab-gastos', this)">Gastos</div>
     </div>
 
-    <!-- COTIZADOR PVC -->
+    <!-- PESTAÑA 1: COTIZADOR PVC POR METRO CUADRADO -->
     <div id="tab-cotizador" class="tab-content active">
       <div class="card">
-        <h3>Cotizador de Techos PVC</h3>
+        <h3>Cotizador de Cielo Raso en PVC</h3>
         
-        <!-- MODO DE CÁLCULO -->
-        <div class="mode-selector">
-          <label style="font-size: 12px; font-weight: bold; color: var(--accent-gold);">¿Cómo deseas cotizar?</label>
-          <select id="cot-modo" onchange="cambiarModoCotizador()">
-            <option value="m2">Directo por Metros Cuadrados (m²)</option>
-            <option value="medidas">Por Medidas del Techo (Ancho x Largo)</option>
-          </select>
-        </div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--accent-gold);">Modo de Ingreso de Superficie:</label>
+        <select id="cot-modo" onchange="cambiarModoCotizador()">
+          <option value="m2">Ingreso directo por Metros Cuadrados (m²)</option>
+          <option value="medidas">Ingreso por Medidas (Ancho x Largo)</option>
+        </select>
 
-        <!-- CAMPOS DINÁMICOS M2 DIRECTOS -->
         <div id="box-m2">
           <label style="font-size: 12px;">Total Metros Cuadrados (m²):</label>
-          <input type="number" id="cot-m2-directo" placeholder="Ej: 32" step="0.1">
+          <input type="number" id="cot-m2-directo" placeholder="Ej: 30" step="0.1">
         </div>
 
-        <!-- CAMPOS DINÁMICOS ANCHO X LARGO -->
         <div id="box-medidas" style="display: none;" class="grid-2">
           <div>
             <label style="font-size: 12px;">Ancho (m):</label>
-            <input type="number" id="cot-ancho" placeholder="Ej: 4.0" step="0.01">
+            <input type="number" id="cot-ancho" placeholder="Ej: 5.0" step="0.01">
           </div>
           <div>
             <label style="font-size: 12px;">Largo (m):</label>
-            <input type="number" id="cot-largo" placeholder="Ej: 5.0" step="0.01">
+            <input type="number" id="cot-largo" placeholder="Ej: 6.0" step="0.01">
           </div>
         </div>
 
-        <!-- TIPO DE LÁMINA -->
-        <div class="grid-2">
-          <div>
-            <label style="font-size: 12px;">Ancho Lámina:</label>
-            <select id="cot-ancho-lamina">
-              <option value="0.25">25 cm (0.25m) Standard</option>
-              <option value="0.20">20 cm (0.20m)</option>
-              <option value="0.30">30 cm (0.30m)</option>
-            </select>
-          </div>
-          <div>
-            <label style="font-size: 12px;">Largo Lámina:</label>
-            <select id="cot-largo-lamina">
-              <option value="5.95">5.95 metros</option>
-              <option value="2.95">2.95 metros</option>
-              <option value="3.95">3.95 metros</option>
-            </select>
-          </div>
-        </div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--accent-gold);">Tipo de Lámina / Tono Elegido:</label>
+        <select id="cot-tipo-color" onchange="actualizarPrecioTipo()">
+          <option value="11.00">Blanco / Cedro Liso / Claros ($11.00 / m²)</option>
+          <option value="12.50">Laminado Oscuro / Black ($12.50 / m²)</option>
+        </select>
 
         <div class="grid-2">
           <div>
-            <label style="font-size: 12px;">Tipo de Precio:</label>
-            <select id="cot-tipo-precio">
-              <option value="detal">Precio Detal ($/m²)</option>
-              <option value="mayor">Precio Al Mayor ($/m²)</option>
-            </select>
+            <label style="font-size: 12px;">Costo por m² ($):</label>
+            <input type="number" id="cot-precio-m2" value="11.00" step="0.5">
           </div>
-          <div>
-            <label style="font-size: 12px;">Precio m² PVC ($):</label>
-            <input type="number" id="cot-precio-m2" value="11" step="0.5">
-          </div>
-        </div>
-
-        <div class="grid-2">
           <div>
             <label style="font-size: 12px;">Mano de Obra ($):</label>
             <input type="number" id="cot-mano-obra" value="0" placeholder="Ej: 50">
           </div>
+        </div>
+
+        <div class="grid-2">
           <div>
             <label style="font-size: 12px;">Flete / Transporte ($):</label>
             <input type="number" id="cot-flete" value="0" placeholder="Ej: 10">
           </div>
+          <div>
+            <label style="font-size: 12px;">Monto Adicionales ($):</label>
+            <input type="number" id="cot-extra-monto" value="0" placeholder="0.00">
+          </div>
         </div>
 
-        <label style="font-size: 12px;">Materiales / Adicionales ($):</label>
-        <input type="text" id="cot-extra-desc" placeholder="Descripción extras (Ej: Luces LED, Cintas, Puntos)">
-        <input type="number" id="cot-extra-monto" placeholder="Costo total adicionales ($)" value="0">
+        <label style="font-size: 12px;">Detalle Adicionales (Luces, Silicones, WPC, etc.):</label>
+        <input type="text" id="cot-extra-desc" placeholder="Ej: 2 Tubos de Silicón + 4 Spots LED">
 
-        <button class="btn-green" onclick="calcularCotizacion()">Calcular Materiales y Presupuesto</button>
+        <button class="btn-green" onclick="calcularCotizacion()">Calcular Presupuesto Exacto</button>
 
         <div id="cot-resultado" class="results-box" style="display: none;">
-          <h4 style="color: var(--accent-gold); font-size: 15px; margin-bottom: 8px;">Cálculo de Materiales y Costo</h4>
+          <h4 style="color: var(--accent-gold); font-size: 14px; margin-bottom: 8px;">Presupuesto y Materiales Requeridos</h4>
           <div id="cot-desglose"></div>
-          <button class="btn-gold" style="margin-top: 10px;" onclick="copiarWhatsApp()">Copiar para WhatsApp 📲</button>
+          <button class="btn-gold" style="margin-top: 12px;" onclick="copiarWhatsApp()">Copiar Presupuesto para WhatsApp 📲</button>
         </div>
       </div>
     </div>
 
-    <!-- PRECIOS AL MAYOR -->
+    <!-- PESTAÑA 2: VENTA AL DETAL Y CATÁLOGO GENERAL -->
+    <div id="tab-detal" class="tab-content">
+      <div class="card">
+        <h3>Catálogo de Productos al Detal (Láminas PVC, WPC, UV, Silicones)</h3>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Venta directa por piezas e insumos individuales.</p>
+        <div id="detal-catalog" class="catalog-grid"></div>
+      </div>
+    </div>
+
+    <!-- PESTAÑA 3: PRECIOS AL MAYOR -->
     <div id="tab-almayor" class="tab-content">
       <div class="card">
-        <h3>Catálogo de Precios al Mayor</h3>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Lista rápida de artículos y precios especiales para mayoristas.</p>
+        <h3>Catálogo Especial para Mayoristas y Revendedores</h3>
         <div id="mayor-catalog" class="catalog-grid"></div>
       </div>
     </div>
 
-    <!-- INVENTARIO -->
+    <!-- PESTAÑA 4: REGISTRO Y GESTIÓN DE INVENTARIO -->
     <div id="tab-inventario" class="tab-content">
       <div class="card">
-        <h3>Agregar / Editar Artículo</h3>
-        <input type="text" id="prod-nombre" placeholder="Nombre del Artículo">
+        <h3>Agregar Nuevo Modelo / Material al Inventario</h3>
+        <input type="text" id="prod-nombre" placeholder="Nombre (Ej: Lámina PVC Blanco Acanalado Gris 5.95m)">
 
         <div class="grid-2">
+          <div>
+            <label style="font-size: 12px;">Categoría:</label>
+            <select id="prod-categoria">
+              <option value="Lámina PVC">Lámina PVC (5.95m x 0.30m)</option>
+              <option value="Panel WPC">Panel WPC Decorativo</option>
+              <option value="Lámina UV">Lámina UV Mármol</option>
+              <option value="Estructura / Perfil">Estructura / Perfil Galvanizado</option>
+              <option value="Insumo / Silicón">Silicón / Pegamento / Tornillos</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 12px;">Stock (Unidades):</label>
+            <input type="number" id="prod-stock" placeholder="0">
+          </div>
+        </div>
+
+        <div class="grid-3">
           <div>
             <label style="font-size: 12px;">Precio Detal ($):</label>
             <input type="number" id="prod-precio-detal" placeholder="0.00" step="0.01">
@@ -202,37 +260,31 @@
             <label style="font-size: 12px;">Precio Mayor ($):</label>
             <input type="number" id="prod-precio-mayor" placeholder="0.00" step="0.01">
           </div>
-        </div>
-
-        <div class="grid-2">
           <div>
             <label style="font-size: 12px;">Costo ($):</label>
             <input type="number" id="prod-costo" placeholder="0.00" step="0.01">
           </div>
-          <div>
-            <label style="font-size: 12px;">Stock / Cantidad:</label>
-            <input type="number" id="prod-stock" placeholder="0">
-          </div>
         </div>
 
-        <label style="font-size: 12px;">URL de la Foto (Opcional):</label>
-        <input type="text" id="prod-foto" placeholder="https://ejemplo.com/foto.jpg">
+        <label style="font-size: 12px;">URL Foto del Producto (Muestrario / Código):</label>
+        <input type="text" id="prod-foto" placeholder="https://i.imgur.com/ejemplo.jpg">
 
-        <button onclick="guardarProducto()">Guardar en Inventario</button>
+        <button class="btn-green" onclick="guardarProducto()">Guardar Material en Inventario</button>
       </div>
 
       <div class="card">
-        <h3>Lista de Inventario</h3>
+        <h3>Lista General de Materiales Registrados</h3>
         <div style="overflow-x: auto;">
           <table>
             <thead>
               <tr>
                 <th>Foto</th>
-                <th>Producto</th>
+                <th>Nombre / Modelo</th>
+                <th>Categoría</th>
                 <th>Detal</th>
                 <th>Mayor</th>
                 <th>Stock</th>
-                <th>Acciones</th>
+                <th>Acción</th>
               </tr>
             </thead>
             <tbody id="tabla-inventario"></tbody>
@@ -241,12 +293,12 @@
       </div>
     </div>
 
-    <!-- GASTOS Y SOCIOS -->
+    <!-- PESTAÑA 5: REGISTRO DE GASTOS -->
     <div id="tab-gastos" class="tab-content">
       <div class="card">
-        <h3>Registro de Gastos</h3>
+        <h3>Control de Gastos Operativos</h3>
         <div class="grid-2">
-          <input type="text" id="gasto-desc" placeholder="Concepto (Ej: Alquiler, Flete)">
+          <input type="text" id="gasto-desc" placeholder="Concepto (Ej: Alquiler Local La Concordia, Flete)">
           <input type="number" id="gasto-monto" placeholder="Monto ($)">
         </div>
         <button class="btn-green" onclick="agregarGasto()">Registrar Gasto</button>
@@ -261,7 +313,7 @@
           </thead>
           <tbody id="tabla-gastos"></tbody>
         </table>
-        <div style="margin-top: 8px; text-align: right; font-weight: bold; color: var(--accent-red);" id="total-gastos">
+        <div style="margin-top: 10px; text-align: right; font-weight: 800; color: var(--accent-red);" id="total-gastos">
           Total Gastos: $0.00
         </div>
       </div>
@@ -272,21 +324,32 @@
   <script>
     const CLAVE_ACCESO = "1234";
 
+    // INVENTARIO INICIAL
     let productos = [
-      { id: 1, nombre: "Lámina PVC Blanco Brillante 5.95m", detal: 11, mayor: 9.5, costo: 6.5, stock: 150, foto: "" },
-      { id: 2, nombre: "Cornisa PVC Tradicional 5.95m", detal: 4.5, mayor: 3.2, costo: 2.0, stock: 80, foto: "" },
-      { id: 3, nombre: "Omega Estr. Galvanizada 3m", detal: 2.8, mayor: 2.1, costo: 1.4, stock: 200, foto: "" }
+      { id: 1, nombre: "Lámina PVC Blanco Acanalado Gris (5.95m)", categoria: "Lámina PVC", detal: 13.00, mayor: 11.00, costo: 9.00, stock: 100, foto: "" },
+      { id: 2, nombre: "Lámina PVC Black / Cedro Laminado (5.95m)", categoria: "Lámina PVC", detal: 14.50, mayor: 12.50, costo: 10.50, stock: 80, foto: "" },
+      { id: 3, nombre: "Panel WPC Interior Roble (2.90m)", categoria: "Panel WPC", detal: 12.00, mayor: 9.50, costo: 7.00, stock: 50, foto: "" },
+      { id: 4, nombre: "Lámina UV Mármol Blanco (1.22m x 2.44m)", categoria: "Lámina UV", detal: 35.00, mayor: 29.00, costo: 22.00, stock: 30, foto: "" },
+      { id: 5, nombre: "Cornisa PVC (5.95m)", categoria: "Estructura / Perfil", detal: 6.00, mayor: 4.50, costo: 3.00, stock: 90, foto: "" },
+      { id: 6, nombre: "Perfil Omega Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, costo: 1.20, stock: 200, foto: "" },
+      { id: 7, nombre: "Perfil Vigueta Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, costo: 1.30, stock: 150, foto: "" },
+      { id: 8, nombre: "Perfil Ángulo Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, costo: 1.10, stock: 180, foto: "" },
+      { id: 9, nombre: "Silicón Neutro Blanco / Transparente", categoria: "Insumo / Silicón", detal: 4.50, mayor: 3.50, costo: 2.20, stock: 60, foto: "" }
     ];
 
     let gastos = [];
 
     function login() {
-      if (document.getElementById("login-pass").value === CLAVE_ACCESO) {
+      const p = document.getElementById("login-pass").value;
+      if (p === CLAVE_ACCESO) {
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("app-screen").style.display = "block";
         renderInventario();
+        renderDetal();
         renderMayor();
-      } else { alert("Contraseña incorrecta"); }
+      } else {
+        alert("Clave de acceso incorrecta. Intenta nuevamente.");
+      }
     }
 
     function logout() {
@@ -295,11 +358,11 @@
       document.getElementById("login-pass").value = "";
     }
 
-    function switchTab(tabId, btn) {
-      document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
-      document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+    function switchTab(tabId, el) {
+      document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
       document.getElementById(tabId).classList.add("active");
-      btn.classList.add("active");
+      el.classList.add("active");
     }
 
     function cambiarModoCotizador() {
@@ -313,117 +376,61 @@
       }
     }
 
+    function actualizarPrecioTipo() {
+      const val = document.getElementById("cot-tipo-color").value;
+      document.getElementById("cot-precio-m2").value = val;
+    }
+
     let textoResumenWS = "";
 
     function calcularCotizacion() {
       const modo = document.getElementById("cot-modo").value;
-      const anchoLamina = parseFloat(document.getElementById("cot-ancho-lamina").value) || 0.25;
-      const largoLamina = parseFloat(document.getElementById("cot-largo-lamina").value) || 5.95;
-      const precioM2 = parseFloat(document.getElementById("cot-precio-m2").value) || 0;
+      const precioM2 = parseFloat(document.getElementById("cot-precio-m2").value) || 11.00;
       const manoObra = parseFloat(document.getElementById("cot-mano-obra").value) || 0;
       const flete = parseFloat(document.getElementById("cot-flete").value) || 0;
       const extraDesc = document.getElementById("cot-extra-desc").value || "Adicionales";
       const extraMonto = parseFloat(document.getElementById("cot-extra-monto").value) || 0;
-      const tipoPrecio = document.getElementById("cot-tipo-precio").value;
 
       let area = 0;
-      let detalleMedida = "";
+      let descMedida = "";
 
       if (modo === "m2") {
         area = parseFloat(document.getElementById("cot-m2-directo").value) || 0;
-        detalleMedida = `${area} m² solicitados`;
+        descMedida = `${area} m² de techo`;
       } else {
         const ancho = parseFloat(document.getElementById("cot-ancho").value) || 0;
         const largo = parseFloat(document.getElementById("cot-largo").value) || 0;
         area = ancho * largo;
-        detalleMedida = `Techo de ${ancho}m x ${largo}m (${area.toFixed(2)} m²)`;
+        descMedida = `Techo de ${ancho}m x ${largo}m (${area.toFixed(2)} m²)`;
       }
 
       if (area <= 0) {
-        alert("Ingresa una cantidad de m² o medidas válidas.");
+        alert("Ingresa un valor válido de m² o dimensiones.");
         return;
       }
 
-      // Área que cubre 1 lámina individual
-      const areaPorLamina = anchoLamina * largoLamina;
-      
-      // Cálculo exacto de láminas (+ 5% por retazos/desperdicio)
-      const cantLaminasExacta = area / areaPorLamina;
-      const cantLaminasConDesperdicio = Math.ceil(cantLaminasExacta * 1.05);
+      // MULTIPLICADORES TÉCNICOS EXACTOS (AJUSTADOS A 0.60 LÁMINAS POR M2 PARA INCLUIR DESPERDICIO POR CORTE)
+      const cantLaminas = Math.ceil(area * 0.60);
+      const cantCornisas = Math.ceil(area * 0.17);
+      const cantOmegas = Math.ceil(area * 0.60);
+      const cantViguetas = Math.ceil(area * 0.40);
+      const cantAngulos = Math.ceil(area * 0.50);
+      const cantTornillosLamina = Math.ceil(area * 8);
+      const cantTornillosEstructura = Math.ceil(area * 7);
 
-      // Estimación de estructura aproximada para esa área
-      const perimetroAprox = Math.sqrt(area) * 4;
-      const cantCornisas = Math.ceil(perimetroAprox / largoLamina);
-      const cantOmegas = Math.ceil((area / 0.6) / 3);
-      const cantViguetas = Math.ceil((area / 1.0) / 3);
-      const tornillos = Math.ceil(area * 12);
-
-      const costoMateriales = area * precioM2;
-      const totalGeneral = costoMateriales + manoObra + flete + extraMonto;
+      const costoMaterialPVC = area * precioM2;
+      const totalGeneral = costoMaterialPVC + manoObra + flete + extraMonto;
 
       const html = `
-        <div class="res-line"><span>Área Total a Cubrir:</span> <strong>${area.toFixed(2)} m²</strong></div>
-        <div class="res-line"><span style="color:var(--accent-gold); font-weight:bold;">Láminas PVC (${largoLamina}m x ${anchoLamina*100}cm):</span> <strong style="font-size:16px; color:var(--accent-green);">${cantLaminasConDesperdicio} uds</strong></div>
-        <div class="res-line"><span>Cornisas (${largoLamina}m):</span> <strong>~${cantCornisas} uds</strong></div>
-        <div class="res-line"><span>Omegas Galvanizadas (3m):</span> <strong>~${cantOmegas} uds</strong></div>
-        <div class="res-line"><span>Viguetas de Carga (3m):</span> <strong>~${cantViguetas} uds</strong></div>
-        <div class="res-line"><span>Tornillería estimada:</span> <strong>~${tornillos} pcs</strong></div>
-        <hr style="border-color: var(--border); margin: 6px 0;">
-        <div class="res-line"><span>Material PVC (${tipoPrecio.toUpperCase()}):</span> <span>$${costoMateriales.toFixed(2)}</span></div>
+        <div class="res-line"><span>Superficie Total:</span> <strong>${area.toFixed(2)} m²</strong></div>
+        <div class="res-line highlight"><span>Láminas PVC (5.95m x 0.30m):</span> <span>${cantLaminas} uds</span></div>
+        <div class="res-line"><span>Cornisas PVC (5.95m):</span> <span>${cantCornisas} uds</span></div>
+        <div class="res-line"><span>Perfil Omegas (2.40m):</span> <span>${cantOmegas} uds</span></div>
+        <div class="res-line"><span>Perfil Viguetas (2.40m):</span> <span>${cantViguetas} uds</span></div>
+        <div class="res-line"><span>Perfil Ángulos (2.40m):</span> <span>${cantAngulos} uds</span></div>
+        <div class="res-line"><span>Tornillos de Lámina:</span> <span>${cantTornillosLamina} pcs</span></div>
+        <div class="res-line"><span>Tornillos de Estructura:</span> <span>${cantTornillosEstructura} pcs</span></div>
+        <hr style="border-color: var(--border-color); margin: 6px 0;">
+        <div class="res-line"><span>Subtotal Materiales ($${precioM2.toFixed(2)}/m²):</span> <span>$${costoMaterialPVC.toFixed(2)}</span></div>
         ${manoObra > 0 ? `<div class="res-line"><span>Mano de Obra:</span> <span>$${manoObra.toFixed(2)}</span></div>` : ''}
-        ${flete > 0 ? `<div class="res-line"><span>Flete/Transporte:</span> <span>$${flete.toFixed(2)}</span></div>` : ''}
-        ${extraMonto > 0 ? `<div class="res-line"><span>${extraDesc}:</span> <span>$${extraMonto.toFixed(2)}</span></div>` : ''}
-        <div class="res-line res-total"><span>TOTAL PRESUPUESTO:</span> <span>$${totalGeneral.toFixed(2)}</span></div>
-      `;
-
-      textoResumenWS = `📌 *PRESUPUESTO TECHOS PVC - WORLD STORE*\n` +
-        `📐 *Área:* ${detalleMedida}\n` +
-        `📦 *Materiales calculados:*\n` +
-        ` • Láminas PVC (${largoLamina}m x ${anchoLamina*100}cm): *${cantLaminasConDesperdicio} unidades*\n` +
-        ` • Cornisas y Perfilería de estructura requerida\n` +
-        (extraMonto > 0 ? ` • ${extraDesc}: $${extraMonto.toFixed(2)}\n` : '') +
-        (flete > 0 ? ` • Flete: $${flete.toFixed(2)}\n` : '') +
-        `💰 *TOTAL ESTIMADO: $${totalGeneral.toFixed(2)}*\n\n` +
-        `📍 San Cristóbal, La Concordia.`;
-
-      document.getElementById("cot-desglose").innerHTML = html;
-      document.getElementById("cot-resultado").style.display = "block";
-    }
-
-    function copiarWhatsApp() {
-      navigator.clipboard.writeText(textoResumenWS);
-      alert("¡Presupuesto copiado al portapapeles! Listo para pegar en WhatsApp.");
-    }
-
-    function renderInventario() {
-      const tbody = document.getElementById("tabla-inventario");
-      tbody.innerHTML = "";
-      productos.forEach(p => {
-        const imgTag = p.foto ? `<img src="${p.foto}" class="prod-img">` : `<div class="prod-img" style="display:flex;align-items:center;justify-content:center;font-size:10px;color:#666;">Sin foto</div>`;
-        tbody.innerHTML += `
-          <tr>
-            <td>${imgTag}</td>
-            <td><strong>${p.nombre}</strong></td>
-            <td>$${p.detal.toFixed(2)}</td>
-            <td style="color:var(--accent-gold);">$${p.mayor.toFixed(2)}</td>
-            <td>${p.stock}</td>
-            <td><button onclick="eliminarProducto(${p.id})" class="btn-danger">x</button></td>
-          </tr>
-        `;
-      });
-    }
-
-    function guardarProducto() {
-      const nombre = document.getElementById("prod-nombre").value;
-      const detal = parseFloat(document.getElementById("prod-precio-detal").value) || 0;
-      const mayor = parseFloat(document.getElementById("prod-precio-mayor").value) || 0;
-      const costo = parseFloat(document.getElementById("prod-costo").value) || 0;
-      const stock = parseInt(document.getElementById("prod-stock").value) || 0;
-      const foto = document.getElementById("prod-foto").value;
-
-      if (!nombre) { alert("Ingresa el nombre del producto"); return; }
-
-      productos.push({ id: Date.now(), nombre, detal, mayor, costo, stock, foto });
-
-      document.getElementById("prod-nombre").value = "";
-      document.getElementById("prod-preci
+        ${flete > 0 ? `<div cla
