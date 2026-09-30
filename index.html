@@ -130,7 +130,7 @@
 <body>
 
   <!-- PANTALLA LOGIN -->
-  <div id="login-screen">
+  <div id="login-screen" style="display: block;">
     <div class="logo-circle">
       <div class="logo-text-wd">WD</div>
       <div class="logo-text-sub">EL MUNDO DEL PVC</div>
@@ -138,7 +138,7 @@
     <h2 style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 6px;">El Mundo del PVC</h2>
     <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 18px;">San Cristóbal - La Concordia</p>
     
-    <input type="password" id="input-clave" placeholder="Ingresa tu clave (1234)">
+    <input type="password" id="input-clave" placeholder="Contraseña (opcional)">
     <button type="button" onclick="entrarAlSistema()">Ingresar al Sistema</button>
   </div>
 
@@ -345,11 +345,15 @@
 
   <script>
     function entrarAlSistema() {
-      document.getElementById("login-screen").style.display = "none";
-      document.getElementById("app-screen").style.display = "block";
-      renderInventario();
-      renderDetal();
-      renderMayor();
+      const loginDiv = document.getElementById("login-screen");
+      const appDiv = document.getElementById("app-screen");
+      if (loginDiv && appDiv) {
+        loginDiv.style.display = "none";
+        appDiv.style.display = "block";
+        renderInventario();
+        renderDetal();
+        renderMayor();
+      }
     }
 
     function salirSistema() {
@@ -442,6 +446,4 @@
         <div class="res-line"><span>Perfil Viguetas (2.40m):</span> <span>${cantViguetas} uds</span></div>
         <div class="res-line"><span>Perfil Ángulos (2.40m):</span> <span>${cantAngulos} uds</span></div>
         <div class="res-line"><span>Tornillos de Lámina:</span> <span>${cantTornillosLamina} pcs</span></div>
-        <div class="res-line"><span>Tornillos de Estructura:</span> <span>${cantTornillosEstructura} pcs</span></div>
-        <hr style="border-color: var(--border-color); margin: 6px 0;">
-        <div
+        <div class="res-line"><span>Tornillos de Estructura:</span>
