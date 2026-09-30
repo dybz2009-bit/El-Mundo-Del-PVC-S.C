@@ -138,8 +138,8 @@
     <h2 style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 6px;">El Mundo del PVC</h2>
     <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 18px;">San Cristóbal - La Concordia</p>
     
-    <input type="password" id="input-clave" placeholder="Ingresa tu clave de acceso">
-    <button id="btn-ingresar" onclick="ejecutarLogin()">Ingresar al Sistema</button>
+    <input type="password" id="input-clave" placeholder="Ingresa tu clave de acceso (1234)" onkeypress="if(event.key==='Enter') ejecutarLogin()">
+    <button type="button" onclick="ejecutarLogin()">Ingresar al Sistema</button>
   </div>
 
   <!-- APLICACIÓN PRINCIPAL -->
@@ -355,7 +355,7 @@
         renderDetal();
         renderMayor();
       } else {
-        alert("Clave incorrecta. Ingresa 1234");
+        alert("Clave incorrecta. Usa 1234");
       }
     }
 
@@ -447,5 +447,4 @@
         <div class="res-line"><span>Cornisas PVC (5.95m):</span> <span>${cantCornisas} uds</span></div>
         <div class="res-line"><span>Perfil Omegas (2.40m):</span> <span>${cantOmegas} uds</span></div>
         <div class="res-line"><span>Perfil Viguetas (2.40m):</span> <span>${cantViguetas} uds</span></div>
-        <div class="res-line"><span>Perfil Ángulos (2.40m):</span> <span>${cantAngulos} uds</span></div>
-        <div class="res-line"><span>To
+        <div class="res-line"><span>Perfil Ángulos (2.40m):</span> <span>${cantAngulos} uds
