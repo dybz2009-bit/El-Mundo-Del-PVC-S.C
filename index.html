@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Store - Sistema Integral de Gestión</title>
+  <title>World Store - Sistema Integrado</title>
   <style>
     :root {
       --bg-color: #121214;
@@ -20,7 +20,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; }
     
-    /* Login */
     #login-screen { max-width: 360px; margin: 60px auto; background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
     input, select, textarea { width: 100%; padding: 10px; margin-top: 6px; margin-bottom: 12px; background: #121214; border: 1px solid var(--border); color: #fff; border-radius: 6px; font-size: 14px; }
     
@@ -41,9 +40,7 @@
     .card h3 { margin-bottom: 12px; color: var(--accent-gold); font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-
-    /* Estilos de tablas e inventario */
+    
     table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
     th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
     th { background: #121214; color: var(--accent-gold); }
@@ -53,17 +50,18 @@
     .res-line { display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; }
     .res-total { font-size: 16px; font-weight: bold; color: var(--accent-green); border-top: 1px solid var(--border); padding-top: 6px; margin-top: 6px; }
 
-    /* Tarjetas de productos catálogo */
     .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
     .prod-card { background: #121214; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
     .prod-card img { width: 100%; height: 110px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; }
     .price-tag { color: var(--accent-green); font-weight: bold; font-size: 15px; }
     .badge-wholesale { background: #1e3a8a; color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-size: 10px; display: inline-block; margin-top: 4px; }
+    
+    .mode-selector { background: #121214; padding: 8px; border-radius: 6px; border: 1px solid var(--accent); margin-bottom: 12px; }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA DE LOGIN -->
+  <!-- LOGIN -->
   <div id="login-screen">
     <h2>World Store</h2>
     <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Sistema de Cotizaciones e Inventario</p>
@@ -89,18 +87,55 @@
       <button class="tab-btn" onclick="switchTab('tab-gastos', this)">Gastos y Socios</button>
     </div>
 
-    <!-- PESTAÑA 1: COTIZADOR PVC -->
+    <!-- COTIZADOR PVC -->
     <div id="tab-cotizador" class="tab-content active">
       <div class="card">
         <h3>Cotizador de Techos PVC</h3>
-        <div class="grid-2">
+        
+        <!-- MODO DE CÁLCULO -->
+        <div class="mode-selector">
+          <label style="font-size: 12px; font-weight: bold; color: var(--accent-gold);">¿Cómo deseas cotizar?</label>
+          <select id="cot-modo" onchange="cambiarModoCotizador()">
+            <option value="m2">Directo por Metros Cuadrados (m²)</option>
+            <option value="medidas">Por Medidas del Techo (Ancho x Largo)</option>
+          </select>
+        </div>
+
+        <!-- CAMPOS DINÁMICOS M2 DIRECTOS -->
+        <div id="box-m2">
+          <label style="font-size: 12px;">Total Metros Cuadrados (m²):</label>
+          <input type="number" id="cot-m2-directo" placeholder="Ej: 32" step="0.1">
+        </div>
+
+        <!-- CAMPOS DINÁMICOS ANCHO X LARGO -->
+        <div id="box-medidas" style="display: none;" class="grid-2">
           <div>
-            <label style="font-size: 12px;">Ancho del Techo (m):</label>
+            <label style="font-size: 12px;">Ancho (m):</label>
             <input type="number" id="cot-ancho" placeholder="Ej: 4.0" step="0.01">
           </div>
           <div>
-            <label style="font-size: 12px;">Largo del Techo (m):</label>
+            <label style="font-size: 12px;">Largo (m):</label>
             <input type="number" id="cot-largo" placeholder="Ej: 5.0" step="0.01">
+          </div>
+        </div>
+
+        <!-- TIPO DE LÁMINA -->
+        <div class="grid-2">
+          <div>
+            <label style="font-size: 12px;">Ancho Lámina:</label>
+            <select id="cot-ancho-lamina">
+              <option value="0.25">25 cm (0.25m) Standard</option>
+              <option value="0.20">20 cm (0.20m)</option>
+              <option value="0.30">30 cm (0.30m)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 12px;">Largo Lámina:</label>
+            <select id="cot-largo-lamina">
+              <option value="5.95">5.95 metros</option>
+              <option value="2.95">2.95 metros</option>
+              <option value="3.95">3.95 metros</option>
+            </select>
           </div>
         </div>
 
@@ -114,7 +149,7 @@
           </div>
           <div>
             <label style="font-size: 12px;">Precio m² PVC ($):</label>
-            <input type="number" id="cot-precio-m2" value="12" step="0.5">
+            <input type="number" id="cot-precio-m2" value="11" step="0.5">
           </div>
         </div>
 
@@ -130,7 +165,7 @@
         </div>
 
         <label style="font-size: 12px;">Materiales / Adicionales ($):</label>
-        <input type="text" id="cot-extra-desc" placeholder="Descripción extras (Ej: 4 Luces LED + Cintas)">
+        <input type="text" id="cot-extra-desc" placeholder="Descripción extras (Ej: Luces LED, Cintas, Puntos)">
         <input type="number" id="cot-extra-monto" placeholder="Costo total adicionales ($)" value="0">
 
         <button class="btn-green" onclick="calcularCotizacion()">Calcular Materiales y Presupuesto</button>
@@ -143,24 +178,20 @@
       </div>
     </div>
 
-    <!-- PESTAÑA 2: PRECIOS AL MAYOR -->
+    <!-- PRECIOS AL MAYOR -->
     <div id="tab-almayor" class="tab-content">
       <div class="card">
         <h3>Catálogo de Precios al Mayor</h3>
         <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Lista rápida de artículos y precios especiales para mayoristas.</p>
-        <div id="mayor-catalog" class="catalog-grid">
-          <!-- Se llena dinámicamente -->
-        </div>
+        <div id="mayor-catalog" class="catalog-grid"></div>
       </div>
     </div>
 
-    <!-- PESTAÑA 3: INVENTARIO -->
+    <!-- INVENTARIO -->
     <div id="tab-inventario" class="tab-content">
       <div class="card">
         <h3>Agregar / Editar Artículo</h3>
-        <input type="hidden" id="prod-id">
-        <label style="font-size: 12px;">Nombre del Artículo:</label>
-        <input type="text" id="prod-nombre" placeholder="Ej: Lámina PVC Mármol Blanco 5.95m">
+        <input type="text" id="prod-nombre" placeholder="Nombre del Artículo">
 
         <div class="grid-2">
           <div>
@@ -204,20 +235,18 @@
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody id="tabla-inventario">
-              <!-- Se llena dinámicamente -->
-            </tbody>
+            <tbody id="tabla-inventario"></tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- PESTAÑA 4: GASTOS Y SOCIOS -->
+    <!-- GASTOS Y SOCIOS -->
     <div id="tab-gastos" class="tab-content">
       <div class="card">
         <h3>Registro de Gastos</h3>
         <div class="grid-2">
-          <input type="text" id="gasto-desc" placeholder="Concepto (Ej: Alquiler, Flete, Servicio)">
+          <input type="text" id="gasto-desc" placeholder="Concepto (Ej: Alquiler, Flete)">
           <input type="number" id="gasto-monto" placeholder="Monto ($)">
         </div>
         <button class="btn-green" onclick="agregarGasto()">Registrar Gasto</button>
@@ -241,28 +270,23 @@
   </div>
 
   <script>
-    // CREDENCIAL DE ACCESO
     const CLAVE_ACCESO = "1234";
 
-    // DATOS DE EJEMPLO
     let productos = [
-      { id: 1, nombre: "Lámina PVC Blanco Brillante 5.95m", detal: 12, mayor: 9.5, costo: 6.5, stock: 150, foto: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=150" },
-      { id: 2, nombre: "Cornisa PVC Tradicional 5.95m", detal: 4.5, mayor: 3.2, costo: 2.0, stock: 80, foto: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=150" },
+      { id: 1, nombre: "Lámina PVC Blanco Brillante 5.95m", detal: 11, mayor: 9.5, costo: 6.5, stock: 150, foto: "" },
+      { id: 2, nombre: "Cornisa PVC Tradicional 5.95m", detal: 4.5, mayor: 3.2, costo: 2.0, stock: 80, foto: "" },
       { id: 3, nombre: "Omega Estr. Galvanizada 3m", detal: 2.8, mayor: 2.1, costo: 1.4, stock: 200, foto: "" }
     ];
 
     let gastos = [];
 
     function login() {
-      const pass = document.getElementById("login-pass").value;
-      if (pass === CLAVE_ACCESO) {
+      if (document.getElementById("login-pass").value === CLAVE_ACCESO) {
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("app-screen").style.display = "block";
         renderInventario();
         renderMayor();
-      } else {
-        alert("Contraseña incorrecta");
-      }
+      } else { alert("Contraseña incorrecta"); }
     }
 
     function logout() {
@@ -278,12 +302,23 @@
       btn.classList.add("active");
     }
 
-    // COTIZADOR PVC
+    function cambiarModoCotizador() {
+      const modo = document.getElementById("cot-modo").value;
+      if (modo === "m2") {
+        document.getElementById("box-m2").style.display = "block";
+        document.getElementById("box-medidas").style.display = "none";
+      } else {
+        document.getElementById("box-m2").style.display = "none";
+        document.getElementById("box-medidas").style.display = "grid";
+      }
+    }
+
     let textoResumenWS = "";
 
     function calcularCotizacion() {
-      const ancho = parseFloat(document.getElementById("cot-ancho").value) || 0;
-      const largo = parseFloat(document.getElementById("cot-largo").value) || 0;
+      const modo = document.getElementById("cot-modo").value;
+      const anchoLamina = parseFloat(document.getElementById("cot-ancho-lamina").value) || 0.25;
+      const largoLamina = parseFloat(document.getElementById("cot-largo-lamina").value) || 5.95;
       const precioM2 = parseFloat(document.getElementById("cot-precio-m2").value) || 0;
       const manoObra = parseFloat(document.getElementById("cot-mano-obra").value) || 0;
       const flete = parseFloat(document.getElementById("cot-flete").value) || 0;
@@ -291,30 +326,48 @@
       const extraMonto = parseFloat(document.getElementById("cot-extra-monto").value) || 0;
       const tipoPrecio = document.getElementById("cot-tipo-precio").value;
 
-      if (ancho <= 0 || largo <= 0) {
-        alert("Por favor ingresa un ancho y largo válidos.");
+      let area = 0;
+      let detalleMedida = "";
+
+      if (modo === "m2") {
+        area = parseFloat(document.getElementById("cot-m2-directo").value) || 0;
+        detalleMedida = `${area} m² solicitados`;
+      } else {
+        const ancho = parseFloat(document.getElementById("cot-ancho").value) || 0;
+        const largo = parseFloat(document.getElementById("cot-largo").value) || 0;
+        area = ancho * largo;
+        detalleMedida = `Techo de ${ancho}m x ${largo}m (${area.toFixed(2)} m²)`;
+      }
+
+      if (area <= 0) {
+        alert("Ingresa una cantidad de m² o medidas válidas.");
         return;
       }
 
-      const area = ancho * largo;
-      // Cálculo aproximado de componentes PVC (Láminas de 0.25m de ancho x 5.95m largo)
-      const cantLaminas = Math.ceil(area / (0.25 * 5.95));
-      const perimetro = (ancho + largo) * 2;
-      const cantCornisas = Math.ceil(perimetro / 5.95);
-      const cantOmegas = Math.ceil((ancho / 0.6) * (largo / 3));
-      const cantViguetas = Math.ceil((largo / 1.0) * (ancho / 3));
+      // Área que cubre 1 lámina individual
+      const areaPorLamina = anchoLamina * largoLamina;
+      
+      // Cálculo exacto de láminas (+ 5% por retazos/desperdicio)
+      const cantLaminasExacta = area / areaPorLamina;
+      const cantLaminasConDesperdicio = Math.ceil(cantLaminasExacta * 1.05);
+
+      // Estimación de estructura aproximada para esa área
+      const perimetroAprox = Math.sqrt(area) * 4;
+      const cantCornisas = Math.ceil(perimetroAprox / largoLamina);
+      const cantOmegas = Math.ceil((area / 0.6) / 3);
+      const cantViguetas = Math.ceil((area / 1.0) / 3);
       const tornillos = Math.ceil(area * 12);
 
       const costoMateriales = area * precioM2;
       const totalGeneral = costoMateriales + manoObra + flete + extraMonto;
 
       const html = `
-        <div class="res-line"><span>Área Total:</span> <strong>${area.toFixed(2)} m²</strong></div>
-        <div class="res-line"><span>Láminas PVC (5.95m):</span> <strong>~${cantLaminas} uds</strong></div>
-        <div class="res-line"><span>Cornisas (5.95m):</span> <strong>~${cantCornisas} uds</strong></div>
-        <div class="res-line"><span>Omegas Galvanizadas:</span> <strong>~${cantOmegas} uds</strong></div>
-        <div class="res-line"><span>Viguetas de Carga:</span> <strong>~${cantViguetas} uds</strong></div>
-        <div class="res-line"><span>Tornillería aprox.:</span> <strong>~${tornillos} pcs</strong></div>
+        <div class="res-line"><span>Área Total a Cubrir:</span> <strong>${area.toFixed(2)} m²</strong></div>
+        <div class="res-line"><span style="color:var(--accent-gold); font-weight:bold;">Láminas PVC (${largoLamina}m x ${anchoLamina*100}cm):</span> <strong style="font-size:16px; color:var(--accent-green);">${cantLaminasConDesperdicio} uds</strong></div>
+        <div class="res-line"><span>Cornisas (${largoLamina}m):</span> <strong>~${cantCornisas} uds</strong></div>
+        <div class="res-line"><span>Omegas Galvanizadas (3m):</span> <strong>~${cantOmegas} uds</strong></div>
+        <div class="res-line"><span>Viguetas de Carga (3m):</span> <strong>~${cantViguetas} uds</strong></div>
+        <div class="res-line"><span>Tornillería estimada:</span> <strong>~${tornillos} pcs</strong></div>
         <hr style="border-color: var(--border); margin: 6px 0;">
         <div class="res-line"><span>Material PVC (${tipoPrecio.toUpperCase()}):</span> <span>$${costoMateriales.toFixed(2)}</span></div>
         ${manoObra > 0 ? `<div class="res-line"><span>Mano de Obra:</span> <span>$${manoObra.toFixed(2)}</span></div>` : ''}
@@ -324,10 +377,10 @@
       `;
 
       textoResumenWS = `📌 *PRESUPUESTO TECHOS PVC - WORLD STORE*\n` +
-        `📏 Medidas: ${ancho}m x ${largo}m (${area.toFixed(2)} m²)\n` +
-        `📦 Materiales principales incluidos:\n` +
-        ` • Láminas PVC (5.95m): ~${cantLaminas} uds\n` +
-        ` • Cornisas y Perfilería de estructura\n` +
+        `📐 *Área:* ${detalleMedida}\n` +
+        `📦 *Materiales calculados:*\n` +
+        ` • Láminas PVC (${largoLamina}m x ${anchoLamina*100}cm): *${cantLaminasConDesperdicio} unidades*\n` +
+        ` • Cornisas y Perfilería de estructura requerida\n` +
         (extraMonto > 0 ? ` • ${extraDesc}: $${extraMonto.toFixed(2)}\n` : '') +
         (flete > 0 ? ` • Flete: $${flete.toFixed(2)}\n` : '') +
         `💰 *TOTAL ESTIMADO: $${totalGeneral.toFixed(2)}*\n\n` +
@@ -342,7 +395,6 @@
       alert("¡Presupuesto copiado al portapapeles! Listo para pegar en WhatsApp.");
     }
 
-    // GESTIÓN DE INVENTARIO
     function renderInventario() {
       const tbody = document.getElementById("tabla-inventario");
       tbody.innerHTML = "";
@@ -355,9 +407,7 @@
             <td>$${p.detal.toFixed(2)}</td>
             <td style="color:var(--accent-gold);">$${p.mayor.toFixed(2)}</td>
             <td>${p.stock}</td>
-            <td>
-              <button onclick="eliminarProducto(${p.id})" class="btn-danger">x</button>
-            </td>
+            <td><button onclick="eliminarProducto(${p.id})" class="btn-danger">x</button></td>
           </tr>
         `;
       });
@@ -373,75 +423,7 @@
 
       if (!nombre) { alert("Ingresa el nombre del producto"); return; }
 
-      productos.push({
-        id: Date.now(),
-        nombre, detal, mayor, costo, stock, foto
-      });
+      productos.push({ id: Date.now(), nombre, detal, mayor, costo, stock, foto });
 
-      // Limpiar campos
       document.getElementById("prod-nombre").value = "";
-      document.getElementById("prod-precio-detal").value = "";
-      document.getElementById("prod-precio-mayor").value = "";
-      document.getElementById("prod-costo").value = "";
-      document.getElementById("prod-stock").value = "";
-      document.getElementById("prod-foto").value = "";
-
-      renderInventario();
-      renderMayor();
-      alert("Producto agregado correctamente.");
-    }
-
-    function eliminarProducto(id) {
-      productos = productos.filter(p => p.id !== id);
-      renderInventario();
-      renderMayor();
-    }
-
-    // CATÁLOGO MAYORISTA
-    function renderMayor() {
-      const grid = document.getElementById("mayor-catalog");
-      grid.innerHTML = "";
-      productos.forEach(p => {
-        const imgUrl = p.foto || 'https://via.placeholder.com/150/1e1e24/fff?text=World+Store';
-        grid.innerHTML += `
-          <div class="prod-card">
-            <img src="${imgUrl}" alt="${p.nombre}">
-            <div style="font-size: 12px; font-weight: bold; height: 32px; overflow: hidden; margin-bottom: 4px;">${p.nombre}</div>
-            <div class="price-tag">$${p.mayor.toFixed(2)}</div>
-            <span class="badge-wholesale">Precio al Mayor</span>
-          </div>
-        `;
-      });
-    }
-
-    // GASTOS
-    function agregarGasto() {
-      const desc = document.getElementById("gasto-desc").value;
-      const monto = parseFloat(document.getElementById("gasto-monto").value) || 0;
-      if (!desc || monto <= 0) return;
-
-      gastos.push({ desc, monto });
-      document.getElementById("gasto-desc").value = "";
-      document.getElementById("gasto-monto").value = "";
-      renderGastos();
-    }
-
-    function renderGastos() {
-      const tbody = document.getElementById("tabla-gastos");
-      tbody.innerHTML = "";
-      let total = 0;
-      gastos.forEach((g, i) => {
-        total += g.monto;
-        tbody.innerHTML += `
-          <tr>
-            <td>${g.desc}</td>
-            <td>$${g.monto.toFixed(2)}</td>
-            <td><button class="btn-danger" onclick="gastos.splice(${i},1);renderGastos();">x</button></td>
-          </tr>
-        `;
-      });
-      document.getElementById("total-gastos").innerText = `Total Gastos: $${total.toFixed(2)}`;
-    }
-  </script>
-</body>
-</html>
+      document.getElementById("prod-preci
