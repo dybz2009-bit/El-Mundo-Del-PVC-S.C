@@ -16,472 +16,270 @@
       --text-muted: #9ca3af;
       --border: #2d2d35;
     }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      margin: 0;
-      padding: 0;
-      padding-bottom: 80px;
-    }
-    header {
-      background-color: var(--card-bg);
-      padding: 15px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    header img {
-      max-height: 70px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-    }
-    header .title {
-      font-weight: bold;
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-      color: var(--accent-gold);
-    }
-    .container {
-      padding: 15px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      border: 1px solid var(--border);
-    }
-    h2, h3 {
-      margin-top: 0;
-      color: #ffffff;
-      font-size: 1.1rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
-    .form-group {
-      margin-bottom: 12px;
-    }
-    label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background-color: #121214;
-      color: white;
-      box-sizing: border-box;
-      font-size: 0.95rem;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      background-color: var(--accent);
-      color: white;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 5px;
-    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; padding: 15px; }
+    .container { width: 100%; max-width: 500px; margin: 0 auto; }
+    .card { background-color: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
+    h1, h2, h3 { text-align: center; color: var(--text-main); margin-bottom: 15px; }
+    label { display: block; margin-top: 10px; font-size: 14px; color: var(--text-muted); }
+    input, select, button { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid var(--border); background-color: #18181c; color: #fff; font-size: 16px; }
+    button { background-color: var(--accent); color: white; font-weight: bold; border: none; cursor: pointer; margin-top: 15px; }
+    button:active { opacity: 0.9; }
     .btn-green { background-color: var(--accent-green); }
     .btn-gold { background-color: var(--accent-gold); color: #000; }
     .btn-red { background-color: var(--accent-red); }
-    .res-box {
-      background-color: #18181c;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    .res-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      font-size: 0.9rem;
-      border-bottom: 1px solid #25252b;
-    }
-    .res-row:last-child { border-bottom: none; }
-    .total-highlight {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: var(--accent-green);
-    }
-    .nav-bar {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: var(--card-bg);
-      display: flex;
-      justify-content: space-around;
-      padding: 12px 0;
-      border-top: 1px solid var(--border);
-      z-index: 100;
-    }
-    .nav-item {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.75rem;
-      text-align: center;
-      cursor: pointer;
-    }
-    .nav-item.active { color: var(--accent-gold); font-weight: bold; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    #login-screen {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: var(--bg-color);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+    .hidden { display: none !important; }
+    .nav-tabs { display: flex; gap: 5px; margin-bottom: 15px; }
+    .nav-tabs button { flex: 1; padding: 10px 5px; font-size: 12px; margin-top: 0; background: #2a2a32; }
+    .nav-tabs button.active { background: var(--accent); }
+    .res-box { background: #18181c; padding: 10px; border-radius: 6px; margin-top: 10px; border-left: 4px solid var(--accent); font-size: 14px; line-height: 1.5; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+    .badge-admin { background: var(--accent-gold); color: #000; }
+    .badge-vendedor { background: var(--accent); color: #fff; }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA DE ACCESO/SEGURIDAD -->
-  <div id="login-screen">
-    <div class="card" style="width: 100%; max-width: 350px; text-align: center;">
-      <img src="logo.png" alt="Logo" style="max-height: 80px; margin-bottom: 10px;" onerror="this.style.display='none'">
-      <h2 style="border:none;">EL MUNDO DEL PVC</h2>
-      <p style="font-size:0.85rem; color:var(--text-muted);">Ingresa tu contraseña de acceso</p>
-      <div class="form-group">
-        <input type="password" id="app-pass" placeholder="Contraseña">
-      </div>
-      <button onclick="validarAcceso()">Ingresar al Sistema</button>
-      <p id="login-error" style="color:var(--accent-red); font-size:0.8rem; margin-top:10px; display:none;">Contraseña incorrecta</p>
-    </div>
+<div class="container">
+
+  <!-- PANTALLA DE LOGIN -->
+  <div id="sec-login" class="card">
+    <h2>EL MUNDO DEL PVC</h2>
+    <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">Sistema de Cotización y Gestión</p>
+    <label for="passInput">Ingresa tu clave de acceso:</label>
+    <input type="password" id="passInput" placeholder="Clave (ej: 1234)">
+    <button onclick="login()">Ingresar al Sistema</button>
+    <p id="loginError" style="color: var(--accent-red); text-align: center; font-size: 13px; margin-top: 10px;" class="hidden">Clave incorrecta. Intenta de nuevo.</p>
   </div>
 
-  <!-- APLICACIÓN PRINCIPAL -->
-  <div id="app-content" style="display:none;">
-    <header>
-      <img src="logo.png" alt="Logo El Mundo del PVC" onerror="this.style.display='none'">
-      <div class="title">EL MUNDO DEL PVC</div>
-      <div id="user-role-badge" style="font-size:0.75rem; color:var(--accent-gold); margin-top:4px;"></div>
-    </header>
+  <!-- SISTEMA PRINCIPAL -->
+  <div id="sec-app" class="hidden">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <span id="userRoleBadge" class="badge"></span>
+      <button onclick="logout()" style="width: auto; padding: 5px 10px; font-size: 12px; margin-top: 0;" class="btn-red">Cerrar Sesión</button>
+    </div>
 
-    <div class="container">
+    <!-- NAVEGACIÓN DE PESTAÑAS -->
+    <div class="nav-tabs">
+      <button id="tab-btn-cotiz" class="active" onclick="switchTab('cotizador')">Cotizador</button>
+      <button id="tab-btn-gastos" onclick="switchTab('gastos')">Gastos</button>
+      <button id="tab-btn-socios" class="admin-only" onclick="switchTab('socios')">Socios</button>
+    </div>
+
+    <!-- PESTAÑA 1: COTIZADOR -->
+    <div id="tab-cotizador" class="card">
+      <h3>Cotizador PVC</h3>
+      <label>Ancho del Techo (m):</label>
+      <input type="number" id="cAncho" step="0.01" placeholder="Ej: 4">
       
-      <!-- TAB 1: COTIZADOR -->
-      <div id="tab-cotizador" class="tab-content active">
-        <div class="card">
-          <h2>Cotizador Cielo Raso PVC</h2>
-          <div class="grid-2">
-            <div class="form-group">
-              <label>Ancho (m):</label>
-              <input type="number" id="ancho" step="0.01" placeholder="Ej: 4.0">
-            </div>
-            <div class="form-group">
-              <label>Largo (m):</label>
-              <input type="number" id="largo" step="0.01" placeholder="Ej: 5.0">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Tono de Lámina:</label>
-            <select id="tipo-lamina" onchange="actualizarPrecioSugerido()">
-              <option value="blanco">Blancos / Cedro (Detal: $11/m²)</option>
-              <option value="oscuro">Cedro Laminado / Black (Detal: $13/m²)</option>
-            </select>
-          </div>
-          <div class="grid-2">
-            <div class="form-group">
-              <label>Precio a Cobrar ($/m²):</label>
-              <input type="number" id="precio-m2-custom" step="0.1" value="11.0">
-            </div>
-            <div class="form-group">
-              <label>Perímetro Croquis (opcional m):</label>
-              <input type="number" id="perimetro-custom" placeholder="Opcional">
-            </div>
-          </div>
-          <button onclick="calcularCotizacion()">Calcular Materiales</button>
-        </div>
+      <label>Largo del Techo (m):</label>
+      <input type="number" id="cLargo" step="0.01" placeholder="Ej: 5">
 
-        <div class="card" id="res-paquete" style="display:none;">
-          <h3>Paquete Base por Metraje</h3>
-          <div id="m2-info" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;"></div>
-          <div class="res-box" id="lista-materiales-m2"></div>
-        </div>
+      <label>Precio m² PVC ($):</label>
+      <input type="number" id="cPrecioM2" step="0.01" value="12">
 
-        <div class="card">
-          <h2>Adicionales / Piezas Sueltas</h2>
-          <div class="grid-2">
-            <div class="form-group">
-              <label>Producto Extra:</label>
-              <select id="prod-extra">
-                <option value="cornisa">Cornisa PVC (5.95m) - $6.00</option>
-                <option value="unionh">Unión H (6.00m) - $6.00</option>
-                <option value="lamina_b">Lám. Blanca/Cedro - $13.00</option>
-                <option value="lamina_o">Lám. Oscura/Black - $14.50</option>
-                <option value="omega">Perfil Omega (2.40m) - $3.00</option>
-                <option value="vigueta">Perfil Vigueta (2.40m) - $3.00</option>
-                <option value="angulo">Perfil Ángulo (2.40m) - $3.00</option>
-                <option value="tornillo_l">Tornillo Lámina (100 un) - $5.00</option>
-                <option value="tornillo_e">Tornillo Estructura (100 un) - $5.00</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Cantidad:</label>
-              <input type="number" id="cant-extra" value="1" min="1">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Precio Unitario Custom ($): <small>(Opcional)</small></label>
-            <input type="number" id="precio-extra-custom" step="0.1" placeholder="Ej: 5.0 (Mayorista)">
-          </div>
-          <button class="btn-green" onclick="agregarExtra()">+ Agregar Adicional</button>
-          <div class="res-box" id="lista-extras" style="margin-top:10px;">
-            <div style="font-size:0.85rem; color:var(--text-muted);">Sin adicionales agregados</div>
-          </div>
-        </div>
+      <button onclick="calcularCotizacion()">Calcular Materiales y Precio</button>
 
-        <div class="card" id="res-final" style="display:none;">
-          <h2>Resumen Total de Venta</h2>
-          <div class="res-box">
-            <div class="res-row"><span>Total Combo m²:</span><span id="txt-costo-m2">$0.00</span></div>
-            <div class="res-row"><span>Total Adicionales:</span><span id="txt-costo-extras">$0.00</span></div>
-            <div class="res-row total-highlight"><span>Cobro Total Cliente:</span><span id="txt-total-cliente">$0.00</span></div>
-            <div class="res-row admin-only" style="color:var(--accent-red);"><span>Costo Real Materiales:</span><span id="txt-costo-real">$0.00</span></div>
-            <div class="res-row admin-only" style="color:var(--accent-green); font-weight:bold;"><span>Ganancia Bruta Venta:</span><span id="txt-ganancia-venta">$0.00</span></div>
-          </div>
-          <button style="margin-top:10px;" onclick="guardarVenta()">Registrar Venta</button>
-        </div>
-      </div>
-
-      <!-- TAB 2: GASTOS (SOLO ADMIN) -->
-      <div id="tab-gastos" class="tab-content admin-only">
-        <div class="card">
-          <h2>1. Gastos Fijos Mensuales</h2>
-          <div class="form-group">
-            <label>Concepto (Alquiler, Servicios, Nómina):</label>
-            <input type="text" id="gasto-fijo-desc">
-          </div>
-          <div class="form-group">
-            <label>Monto Mensual ($):</label>
-            <input type="number" id="gasto-fijo-monto" step="0.01">
-          </div>
-          <button class="btn-gold" onclick="registrarGastoFijo()">Guardar Gasto Fijo</button>
-          <div class="res-box" id="lista-gastos-fijos" style="margin-top:10px;"></div>
-        </div>
-
-        <div class="card">
-          <h2>2. Gastos Diarios / Adicionales</h2>
-          <div class="form-group">
-            <label>Concepto (Fletes, Almuerzos, Suministros):</label>
-            <input type="text" id="gasto-diario-desc">
-          </div>
-          <div class="form-group">
-            <label>Monto ($):</label>
-            <input type="number" id="gasto-diario-monto" step="0.01">
-          </div>
-          <button onclick="registrarGastoDiario()">Guardar Gasto Diario</button>
-          <div class="res-box" id="lista-gastos-diarios" style="margin-top:10px;"></div>
-        </div>
-      </div>
-
-      <!-- TAB 3: SOCIOS / BALANCE (SOLO ADMIN) -->
-      <div id="tab-socios" class="tab-content admin-only">
-        <div class="card">
-          <h2>Balance de Ganancia Neta</h2>
-          <div class="res-box">
-            <div class="res-row"><span>Ventas Totales:</span><span id="bal-ventas">$0.00</span></div>
-            <div class="res-row" style="color:var(--accent-red);"><span>- Costo Materiales:</span><span id="bal-costos">$0.00</span></div>
-            <div class="res-row" style="color:var(--accent-red);"><span>- Gastos Fijos Mes:</span><span id="bal-gastos-fijos">$0.00</span></div>
-            <div class="res-row" style="color:var(--accent-red);"><span>- Gastos Diarios:</span><span id="bal-gastos-diarios">$0.00</span></div>
-            <div class="res-row total-highlight"><span>Ganancia Neta Real:</span><span id="bal-neta">$0.00</span></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Repartición 50/50 entre Socios</h2>
-          <div class="res-box">
-            <div class="res-row"><span>Socio 1 (50%):</span><span id="socio1-monto" style="color:var(--accent-gold); font-weight:bold;">$0.00</span></div>
-            <div class="res-row"><span>Socio 2 (50%):</span><span id="socio2-monto" style="color:var(--accent-gold); font-weight:bold;">$0.00</span></div>
-          </div>
-        </div>
-      </div>
-
+      <div id="resCotizacion" class="res-box hidden"></div>
     </div>
 
-    <!-- BARRA NAVEGACIÓN -->
-    <div class="nav-bar">
-      <div class="nav-item active" onclick="cambiarTab('cotizador', this)">Cotizador</div>
-      <div class="nav-item admin-only" onclick="cambiarTab('gastos', this)">Gastos</div>
-      <div class="nav-item admin-only" onclick="cambiarTab('socios', this)">Socios (50/50)</div>
-      <div class="nav-item" onclick="cerrarSesion()" style="color:var(--accent-red);">Salir</div>
+    <!-- PESTAÑA 2: GASTOS -->
+    <div id="tab-gastos" class="card hidden">
+      <h3>Registro de Gastos</h3>
+      <label>Descripción:</label>
+      <input type="text" id="gDesc" placeholder="Ej: Almuerzo, Transporte">
+
+      <label>Monto ($):</label>
+      <input type="number" id="gMonto" step="0.01" placeholder="Ej: 15.50">
+
+      <label>Tipo de Gasto:</label>
+      <select id="gTipo">
+        <option value="Diario">Gasto Diario</option>
+        <option value="Fijo">Gasto Fijo</option>
+      </select>
+
+      <button onclick="registrarGasto()" class="btn-gold">Registrar Gasto</button>
+
+      <div id="resGastos" class="res-box" style="margin-top: 15px;">
+        <strong>Gastos Registrados:</strong>
+        <div id="listaGastos" style="margin-top: 5px; font-size: 13px;">No hay gastos registrados.</div>
+        <hr style="margin: 8px 0; border-color: var(--border);">
+        <div><strong>Total Gastos: $<span id="totalGastos">0.00</span></strong></div>
+      </div>
     </div>
+
+    <!-- PESTAÑA 3: SOCIOS (SOLO ADMIN) -->
+    <div id="tab-socios" class="card hidden admin-only">
+      <h3>Reparto de Ganancia Neta</h3>
+      <label>Ventas Totales ($):</label>
+      <input type="number" id="sVentas" step="0.01" placeholder="Ej: 1000">
+
+      <label>Costo de Materiales/Inversión ($):</label>
+      <input type="number" id="sCostos" step="0.01" placeholder="Ej: 400">
+
+      <button onclick="calcularSocios()" class="btn-green">Calcular Reparto Neta</button>
+
+      <div id="resSocios" class="res-box hidden"></div>
+    </div>
+
   </div>
 
-  <script>
-    const CLAVE_ADMIN = "1234";
-    const CLAVE_VENDEDOR = "5678";
-    let esAdmin = false;
+</div>
 
-    const PRECIOS = {
-      lamina_b: { costo: 9.0, detal: 13.0, nombre: "Lámina Blanco/Cedro" },
-      lamina_o: { costo: 10.5, detal: 14.5, nombre: "Lámina Oscura/Black" },
-      cornisa: { costo: 3.0, detal: 6.0, nombre: "Cornisa PVC (5.95m)" },
-      unionh: { costo: 3.0, detal: 6.0, nombre: "Unión H (6.00m)" },
-      omega: { costo: 1.3, detal: 3.0, nombre: "Perfil Omega (2.40m)" },
-      vigueta: { costo: 1.3, detal: 3.0, nombre: "Perfil Vigueta (2.40m)" },
-      angulo: { costo: 1.1, detal: 3.0, nombre: "Perfil Ángulo (2.40m)" },
-      tornillo_l: { costo: 0.90, detal: 5.0, nombre: "Tornillos Lámina (100 un)" },
-      tornillo_e: { costo: 0.90, detal: 5.0, nombre: "Tornillos Estructura (100 un)" }
-    };
+<script>
+  let currentRole = null;
+  let gastos = [];
 
-    let datosGlobales = {
-      totalesM2Cliente: 0, costoM2Materiales: 0,
-      extrasCliente: 0, extrasCosto: 0,
-      listaExtras: [], ventas: [], gastosFijos: [], gastosDiarios: []
-    };
+  function login() {
+    const pass = document.getElementById('passInput').value.trim();
+    const err = document.getElementById('loginError');
 
-    function validarAcceso() {
-      const pass = document.getElementById('app-pass').value;
-      if (pass === CLAVE_ADMIN) {
-        esAdmin = true;
-        iniciarApp("Perfil: Administrador");
-      } else if (pass === CLAVE_VENDEDOR) {
-        esAdmin = false;
-        iniciarApp("Perfil: Vendedor");
-      } else {
-        document.getElementById('login-error').style.display = 'block';
-      }
+    if (pass === '1234') {
+      currentRole = 'ADMIN';
+    } else if (pass === '5678') {
+      currentRole = 'VENDEDOR';
+    } else {
+      err.classList.remove('hidden');
+      return;
     }
 
-    function iniciarApp(rolTexto) {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('app-content').style.display = 'block';
-      document.getElementById('user-role-badge').innerText = rolTexto;
+    err.classList.add('hidden');
+    document.getElementById('sec-login').classList.add('hidden');
+    document.getElementById('sec-app').classList.remove('hidden');
 
-      if (!esAdmin) {
-        document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
-      }
+    const badge = document.getElementById('userRoleBadge');
+    if (currentRole === 'ADMIN') {
+      badge.textContent = 'Modo: Administrador';
+      badge.className = 'badge badge-admin';
+      document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
+    } else {
+      badge.textContent = 'Modo: Vendedor';
+      badge.className = 'badge badge-vendedor';
+      document.querySelectorAll('.admin-only').forEach(el => el.classList.add('hidden'));
+    }
+  }
+
+  function logout() {
+    currentRole = null;
+    document.getElementById('passInput').value = '';
+    document.getElementById('sec-app').classList.add('hidden');
+    document.getElementById('sec-login').classList.remove('hidden');
+  }
+
+  function switchTab(tab) {
+    document.getElementById('tab-cotizador').classList.add('hidden');
+    document.getElementById('tab-gastos').classList.add('hidden');
+    document.getElementById('tab-socios').classList.add('hidden');
+
+    document.getElementById('tab-btn-cotiz').classList.remove('active');
+    document.getElementById('tab-btn-gastos').classList.remove('active');
+    document.getElementById('tab-btn-socios').classList.remove('active');
+
+    if (tab === 'cotizador') {
+      document.getElementById('tab-cotizador').classList.remove('hidden');
+      document.getElementById('tab-btn-cotiz').classList.add('active');
+    } else if (tab === 'gastos') {
+      document.getElementById('tab-gastos').classList.remove('hidden');
+      document.getElementById('tab-btn-gastos').classList.add('active');
+    } else if (tab === 'socios') {
+      document.getElementById('tab-socios').classList.remove('hidden');
+      document.getElementById('tab-btn-socios').classList.add('active');
+    }
+  }
+
+  function calcularCotizacion() {
+    const ancho = parseFloat(document.getElementById('cAncho').value) || 0;
+    const largo = parseFloat(document.getElementById('cLargo').value) || 0;
+    const precioM2 = parseFloat(document.getElementById('cPrecioM2').value) || 0;
+
+    if (ancho <= 0 || largo <= 0) {
+      alert('Ingresa dimensiones válidas.');
+      return;
     }
 
-    function cerrarSesion() {
-      location.reload();
+    const area = ancho * largo;
+    const totalPrecio = area * precioM2;
+
+    // Estimación aproximada de estructura PVC por m2
+    const laminasPVC = Math.ceil(area / 1.18); // Láminas aprox de 5.95m x 0.20m
+    const cornisas = Math.ceil((ancho + largo) * 2 / 5.95);
+    const omegas = Math.ceil(area * 0.8);
+    const viguetas = Math.ceil(area * 0.3);
+
+    const res = document.getElementById('resCotizacion');
+    res.innerHTML = `
+      <strong>Resultado de Cotización:</strong><br>
+      • Área Total: <strong>${area.toFixed(2)} m²</strong><br>
+      • Precio Total Materiales: <strong>$${totalPrecio.toFixed(2)}</strong><br><br>
+      <strong>Estructura Estimada:</strong><br>
+      • Láminas de PVC (5.95m): ~${laminasPVC} uds<br>
+      • Cornisas (5.95m): ~${cornisas} uds<br>
+      • Omegas: ~${omegas} uds<br>
+      • Viguetas: ~${viguetas} uds
+    `;
+    res.classList.remove('hidden');
+  }
+
+  function registrarGasto() {
+    const desc = document.getElementById('gDesc').value.trim();
+    const monto = parseFloat(document.getElementById('gMonto').value) || 0;
+    const tipo = document.getElementById('gTipo').value;
+
+    if (!desc || monto <= 0) {
+      alert('Ingresa una descripción y un monto válido.');
+      return;
     }
 
-    function cambiarTab(tabId, el) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      document.getElementById('tab-' + tabId).classList.add('active');
-      el.classList.add('active');
-      if (tabId === 'socios' && esAdmin) calcularBalanceSocios();
-    }
+    gastos.push({ desc, monto, tipo });
+    document.getElementById('gDesc').value = '';
+    document.getElementById('gMonto').value = '';
 
-    function actualizarPrecioSugerido() {
-      const tipo = document.getElementById('tipo-lamina').value;
-      document.getElementById('precio-m2-custom').value = (tipo === 'blanco') ? "11.0" : "13.0";
-    }
+    actualizarListaGastos();
+  }
 
-    function calcularCotizacion() {
-      const ancho = parseFloat(document.getElementById('ancho').value) || 0;
-      const largo = parseFloat(document.getElementById('largo').value) || 0;
-      const tipo = document.getElementById('tipo-lamina').value;
-      const precioM2Venta = parseFloat(document.getElementById('precio-m2-custom').value) || (tipo === 'blanco' ? 11.0 : 13.0);
-      const perimetroCustom = parseFloat(document.getElementById('perimetro-custom').value) || 0;
+  function actualizarListaGastos() {
+    const container = document.getElementById('listaGastos');
+    let total = 0;
 
-      if (ancho <= 0 || largo <= 0) return alert("Ingresa dimensiones válidas");
-
-      const areaMedida = ancho * largo;
-      const laminasEnteras = Math.ceil(areaMedida / 1.785);
-      const m2RealLaminas = laminasEnteras * 1.785;
-      const costoLaminaUnit = (tipo === 'blanco') ? PRECIOS.lamina_b.costo : PRECIOS.lamina_o.costo;
-
-      const cornisasTiras = Math.ceil(perimetroCustom > 0 ? (perimetroCustom / 5.95) : (m2RealLaminas * 0.17));
-      const omegasTiras = Math.ceil(m2RealLaminas * 0.60);
-      const angulosTiras = Math.ceil(perimetroCustom > 0 ? (perimetroCustom / 2.40) : (m2RealLaminas * 0.50));
-      const viguetasTiras = Math.ceil(m2RealLaminas * 0.40);
-      const tornillosLam = Math.ceil(m2RealLaminas * 8);
-      const tornillosEst = Math.ceil(m2RealLaminas * 7);
-
-      datosGlobales.totalesM2Cliente = m2RealLaminas * precioM2Venta;
-      datosGlobales.costoM2Materiales = 
-        (laminasEnteras * costoLaminaUnit) +
-        (cornisasTiras * PRECIOS.cornisa.costo) +
-        (omegasTiras * PRECIOS.omega.costo) +
-        (angulosTiras * PRECIOS.angulo.costo) +
-        (viguetasTiras * PRECIOS.vigueta.costo) +
-        ((tornillosLam / 100) * PRECIOS.tornillo_l.costo) +
-        ((tornillosEst / 100) * PRECIOS.tornillo_e.costo);
-
-      document.getElementById('m2-info').innerHTML = `Área Techo: <b>${areaMedida.toFixed(2)} m²</b> | Cobrado: <b>${m2RealLaminas.toFixed(2)} m²</b> (${laminasEnteras} láminas a $${precioM2Venta.toFixed(2)}/m²)`;
-      
-      document.getElementById('lista-materiales-m2').innerHTML = `
-        <div class="res-row"><span>Láminas (${laminasEnteras} tiras)</span></div>
-        <div class="res-row"><span>Cornisas (${cornisasTiras} tiras)</span></div>
-        <div class="res-row"><span>Omegas (${omegasTiras} tiras)</span></div>
-        <div class="res-row"><span>Ángulos (${angulosTiras} tiras)</span></div>
-        <div class="res-row"><span>Viguetas (${viguetasTiras} tiras)</span></div>
-        <div class="res-row"><span>Tornillos Lámina (${tornillosLam} un)</span></div>
-        <div class="res-row"><span>Tornillos Estructura (${tornillosEst} un)</span></div>
-      `;
-
-      document.getElementById('res-paquete').style.display = 'block';
-      actualizarResumenFinal();
-    }
-
-    function agregarExtra() {
-      const prodKey = document.getElementById('prod-extra').value;
-      const cant = parseInt(document.getElementById('cant-extra').value) || 1;
-      const precioCustomInput = parseFloat(document.getElementById('precio-extra-custom').value);
-      const prod = PRECIOS[prodKey];
-
-      const precioVentaUnit = (!isNaN(precioCustomInput) && precioCustomInput > 0) ? precioCustomInput : prod.detal;
-      const subtotalVenta = precioVentaUnit * cant;
-      const subtotalCosto = prod.costo * cant;
-
-      datosGlobales.listaExtras.push({ nombre: prod.nombre, cant, subtotalVenta, subtotalCosto, unit: precioVentaUnit });
-      renderExtras();
-      actualizarResumenFinal();
-      document.getElementById('precio-extra-custom').value = '';
-    }
-
-    function renderExtras() {
-      if (datosGlobales.listaExtras.length === 0) return;
+    if (gastos.length === 0) {
+      container.innerHTML = 'No hay gastos registrados.';
+    } else {
       let html = '';
-      datosGlobales.extrasCliente = 0;
-      datosGlobales.extrasCosto = 0;
-
-      datosGlobales.listaExtras.forEach((item) => {
-        datosGlobales.extrasCliente += item.subtotalVenta;
-        datosGlobales.extrasCosto += item.subtotalCosto;
-        html += `<div class="res-row"><span>${item.cant}x ${item.nombre} ($${item.unit.toFixed(2)} c/u)</span><span>$${item.subtotalVenta.toFixed(2)}</span></div>`;
+      gastos.forEach((g) => {
+        total += g.monto;
+        html += `• ${g.desc} (${g.tipo}): <strong>$${g.monto.toFixed(2)}</strong><br>`;
       });
-      document.getElementById('lista-extras').innerHTML = html;
+      container.innerHTML = html;
     }
 
-    function actualizarResumenFinal() {
-      const cobroTotal = datosGlobales.totalesM2Cliente + datosGlobales.extrasCliente;
-      const costoTotal = datosGlobales.costoM2Materiales + datosGlobales.extrasCosto;
-      const ganancia = cobroTotal - costoTotal;
+    document.getElementById('totalGastos').textContent = total.toFixed(2);
+  }
 
-      document.getElementById('txt-costo-m2').innerText = `$${datosGlobales.totalesM2Cliente.toFixed(2)}`;
-      document.getElementById('txt-costo-extras').innerText = `$${datosGlobales.extrasCliente.toFixed(2)}`;
-      document.getElementById('txt-total-cliente').innerText = `$${cobroTotal.toFixed(2)}`;
-      document.getElementById('txt-costo-real').innerText = `$${costoTotal.toFixed(2)}`;
-      document.getElementById('txt-ganancia-venta').innerText = `$${ganancia.toFixed(2)}`;
+  function calcularSocios() {
+    const ventas = parseFloat(document.getElementById('sVentas').value) || 0;
+    const costos = parseFloat(document.getElementById('sCostos').value) || 0;
+    
+    let totalG = 0;
+    gastos.forEach(g => totalG += g.monto);
 
-      document.getElementById('res-final').style.display = 'block';
-    }
+    const gananciaNeta = ventas - costos - totalG;
+    const porSocio = gananciaNeta / 2;
 
-    function guardarVenta() {
-      const cob
+    const res = document.getElementById('resSocios');
+    res.innerHTML = `
+      <strong>Resumen Financiero:</strong><br>
+      • Ventas Totales: $${ventas.toFixed(2)}<br>
+      • Costo de Materiales: -$${costos.toFixed(2)}<br>
+      • Gastos Registrados: -$${totalG.toFixed(2)}<br>
+      <hr style="margin: 5px 0; border-color: var(--border);">
+      • <strong>Ganancia Neta Total: $${gananciaNeta.toFixed(2)}</strong><br>
+      • <strong>Reparto por Socio (50%): $${porSocio.toFixed(2)} cada uno</strong>
+    `;
+    res.classList.remove('hidden');
+  }
+</script>
+
+</body>
+</html>
