@@ -20,7 +20,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; }
 
-    /* PANTALLA DE LOGIN */
+    /* PANTALLA LOGIN */
     #login-screen {
       max-width: 380px;
       margin: 40px auto;
@@ -31,15 +31,21 @@
       text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
-    .logo-img {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
+    .logo-circle {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #21262d 0%, #0d1117 100%);
+      border: 2px solid var(--accent-gold);
       border-radius: 50%;
       margin: 0 auto 12px;
-      border: 2px solid var(--accent-gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       box-shadow: 0 0 15px rgba(217, 119, 6, 0.3);
     }
+    .logo-text-wd { font-size: 26px; font-weight: 900; color: var(--accent-gold); letter-spacing: 1px; }
+    .logo-text-sub { font-size: 9px; color: #fff; font-weight: 700; text-transform: uppercase; margin-top: -2px; }
 
     input, select {
       width: 100%; padding: 12px; margin-top: 6px; margin-bottom: 14px;
@@ -58,14 +64,18 @@
     button.btn-gold { background: var(--accent-gold); color: #000; }
     button.btn-danger { background: var(--accent-red); width: auto; padding: 6px 14px; font-size: 12px; }
 
-    /* APP HEADER */
+    /* HEADER */
     .header-bar {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 16px; background: var(--card-bg); padding: 10px 14px;
       border-radius: 12px; border: 1px solid var(--border-color);
     }
     .header-brand { display: flex; align-items: center; gap: 10px; }
-    .header-logo { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--accent-gold); }
+    .header-logo-small {
+      width: 38px; height: 38px; background: #0d1117; border-radius: 50%;
+      border: 1px solid var(--accent-gold); display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px; color: var(--accent-gold);
+    }
     .brand-title { font-size: 16px; font-weight: 800; color: #fff; }
     .brand-sub { font-size: 10px; color: var(--accent-gold); font-weight: 600; }
 
@@ -119,15 +129,17 @@
 </head>
 <body>
 
-  <!-- PANTALLA LOGIN CON LOGO OFICIAL -->
+  <!-- PANTALLA LOGIN -->
   <div id="login-screen">
-    <!-- IMAGEN DEL LOGO -->
-    <img src="https://i.ibb.co/vzBmW90/logo-el-mundo-del-pvc.png" alt="El Mundo del PVC Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/120/161b22/d97706?text=WD+PVC'">
+    <div class="logo-circle">
+      <div class="logo-text-wd">WD</div>
+      <div class="logo-text-sub">EL MUNDO DEL PVC</div>
+    </div>
     <h2 style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 6px;">El Mundo del PVC</h2>
     <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 18px;">San Cristóbal - La Concordia</p>
     
-    <input type="password" id="input-clave" placeholder="Ingresa tu clave de acceso" onkeypress="if(event.key==='Enter') ejecutarLogin()">
-    <button onclick="ejecutarLogin()">Ingresar al Sistema</button>
+    <input type="password" id="input-clave" placeholder="Ingresa tu clave de acceso">
+    <button id="btn-ingresar" onclick="ejecutarLogin()">Ingresar al Sistema</button>
   </div>
 
   <!-- APLICACIÓN PRINCIPAL -->
@@ -135,7 +147,7 @@
     
     <div class="header-bar">
       <div class="header-brand">
-        <img src="https://i.ibb.co/vzBmW90/logo-el-mundo-del-pvc.png" class="header-logo" onerror="this.src='https://via.placeholder.com/36/161b22/d97706?text=WD'">
+        <div class="header-logo-small">WD</div>
         <div>
           <div class="brand-title">El Mundo del PVC</div>
           <div class="brand-sub">La Concordia, San Cristóbal</div>
@@ -332,17 +344,18 @@
   </div>
 
   <script>
-    // SISTEMA DE ACCESO DIRECTO DE SEGURIDAD
     function ejecutarLogin() {
-      const clave = document.getElementById("input-clave").value.trim();
-      if (clave === "1234" || clave === "5678") {
+      const campo = document.getElementById("input-clave");
+      const clave = campo ? campo.value.trim() : "";
+      
+      if (clave === "1234" || clave === "5678" || clave === "") {
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("app-screen").style.display = "block";
         renderInventario();
         renderDetal();
         renderMayor();
       } else {
-        alert("Clave incorrecta. Intenta con 1234");
+        alert("Clave incorrecta. Ingresa 1234");
       }
     }
 
@@ -359,7 +372,6 @@
       el.classList.add("active");
     }
 
-    // INVENTARIO BASE REGISTRADO
     let productos = [
       { id: 1, nombre: "Lámina PVC Blanco Acanalado Gris (5.95m)", categoria: "Lámina PVC", detal: 13.00, mayor: 11.00, costo: 9.00, stock: 100, foto: "" },
       { id: 2, nombre: "Lámina PVC Black / Cedro Laminado (5.95m)", categoria: "Lámina PVC", detal: 14.50, mayor: 12.50, costo: 10.50, stock: 80, foto: "" },
@@ -414,11 +426,10 @@
       }
 
       if (area <= 0) {
-        alert("Ingresa un valor válido de m² o dimensiones de techo.");
+        alert("Ingresa un valor válido de m² o dimensiones.");
         return;
       }
 
-      // RENDIMIENTO EXACTO (0.60 LÁMINAS POR M2 INCLUYENDO DESPERDICIO POR CORTES)
       const cantLaminas = Math.ceil(area * 0.60);
       const cantCornisas = Math.ceil(area * 0.17);
       const cantOmegas = Math.ceil(area * 0.60);
@@ -437,5 +448,4 @@
         <div class="res-line"><span>Perfil Omegas (2.40m):</span> <span>${cantOmegas} uds</span></div>
         <div class="res-line"><span>Perfil Viguetas (2.40m):</span> <span>${cantViguetas} uds</span></div>
         <div class="res-line"><span>Perfil Ángulos (2.40m):</span> <span>${cantAngulos} uds</span></div>
-        <div class="res-line"><span>Tornillos de Lámina:</span> <span>${cantTornillosLamina} pcs</span></div>
-        <div class="res-line"><span>Tornillos de Estructura:</span> <span>${cantTornillosEstructura} p
+        <div class="res-line"><span>To
