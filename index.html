@@ -3,101 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Mundo del PVC - Sistema Comercial</title>
+  <title>El Mundo del PVC - Sistema Comercial | San Cristóbal</title>
   <style>
     :root {
-      --bg-color: #0d1117;
-      --card-bg: #161b22;
+      --bg-color: #0b0f19;
+      --card-bg: #111827;
       --accent-blue: #2563eb;
       --accent-green: #10b981;
-      --accent-gold: #d97706;
+      --accent-gold: #f59e0b;
       --accent-red: #ef4444;
-      --text-main: #f0f6fc;
-      --text-muted: #8b949e;
-      --border-color: #30363d;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #374151;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-main); padding: 16px; max-width: 900px; margin: 0 auto; }
+    body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; max-width: 1000px; margin: 0 auto; }
 
     /* HEADER */
     .header-bar {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px; background: var(--card-bg); padding: 14px 20px;
-      border-radius: 12px; border: 1px solid var(--border-color);
+      margin-bottom: 24px; background: var(--card-bg); padding: 16px 24px;
+      border-radius: 14px; border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
-    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .header-brand { display: flex; align-items: center; gap: 14px; }
     .header-logo-small {
-      width: 44px; height: 44px; background: #0d1117; border-radius: 50%;
+      width: 48px; height: 48px; background: #0f172a; border-radius: 50%;
       border: 2px solid var(--accent-gold); display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 16px; color: var(--accent-gold);
+      font-weight: 900; font-size: 18px; color: var(--accent-gold);
     }
-    .brand-title { font-size: 18px; font-weight: 800; color: #fff; }
-    .brand-sub { font-size: 11px; color: var(--accent-gold); font-weight: 600; }
+    .brand-title { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
+    .brand-sub { font-size: 12px; color: var(--accent-gold); font-weight: 600; }
 
-    /* NAVEGACIÓN */
-    .nav-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 20px; }
+    /* NAVEGACIÓN DE PESTAÑAS */
+    .nav-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px; }
     .tab-btn {
-      flex: 1; min-width: 110px; padding: 12px 10px; background: var(--card-bg);
+      flex: 1; min-width: 130px; padding: 14px 12px; background: var(--card-bg);
       border: 1px solid var(--border-color); color: var(--text-muted);
-      border-radius: 10px; font-weight: 600; font-size: 12px; text-align: center; cursor: pointer; white-space: nowrap;
+      border-radius: 12px; font-weight: 700; font-size: 13px; text-align: center; cursor: pointer; white-space: nowrap;
+      transition: all 0.2s ease;
     }
-    .tab-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+    .tab-btn:hover { border-color: var(--accent-gold); color: #fff; }
+    .tab-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); box-shadow: 0 0 15px rgba(37,99,235,0.4); }
 
     .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
 
-    /* TARJETAS */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* TARJETAS Y CONTENEDORES */
     .card {
-      background: var(--card-bg); padding: 20px; border-radius: 14px;
-      border: 1px solid var(--border-color); margin-bottom: 20px;
+      background: var(--card-bg); padding: 24px; border-radius: 16px;
+      border: 1px solid var(--border-color); margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
     .card h3 {
-      font-size: 16px; color: var(--accent-gold); margin-bottom: 14px;
-      border-bottom: 1px solid var(--border-color); padding-bottom: 8px;
+      font-size: 18px; color: var(--accent-gold); margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
     }
 
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
     input, select {
-      width: 100%; padding: 12px; margin-top: 6px; margin-bottom: 14px;
-      background: #010409; border: 1px solid var(--border-color);
-      color: #fff; border-radius: 8px; font-size: 14px; outline: none;
+      width: 100%; padding: 12px 14px; margin-bottom: 16px;
+      background: #030712; border: 1px solid var(--border-color);
+      color: #fff; border-radius: 10px; font-size: 14px; outline: none; transition: border-color 0.2s;
     }
-    input:focus, select:focus { border-color: var(--accent-blue); }
+    input:focus, select:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
 
     button {
-      width: 100%; padding: 12px; background: var(--accent-blue); color: white;
-      border: none; border-radius: 8px; font-weight: 700; font-size: 15px;
-      cursor: pointer; transition: background 0.2s;
+      width: 100%; padding: 14px; background: var(--accent-blue); color: white;
+      border: none; border-radius: 10px; font-weight: 700; font-size: 15px;
+      cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(37,99,235,0.3);
     }
+    button:hover { filter: brightness(1.1); }
     button:active { transform: scale(0.98); }
-    button.btn-green { background: var(--accent-green); }
-    button.btn-gold { background: var(--accent-gold); color: #000; }
-    button.btn-danger { background: var(--accent-red); width: auto; padding: 6px 14px; font-size: 12px; }
+    button.btn-green { background: var(--accent-green); box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
+    button.btn-gold { background: var(--accent-gold); color: #000; font-weight: 800; box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+    button.btn-danger { background: var(--accent-red); width: auto; padding: 6px 12px; font-size: 12px; box-shadow: none; }
 
-    /* RESULTADOS */
+    /* CAJA DE RESULTADOS DEL COTIZADOR */
     .results-box {
-      background: #010409; padding: 16px; border-radius: 10px;
-      border: 1px solid var(--accent-gold); margin-top: 16px;
+      background: #030712; padding: 20px; border-radius: 12px;
+      border: 1px solid var(--accent-gold); margin-top: 20px;
     }
-    .res-line { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; }
+    .res-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; border-bottom: 1px solid rgba(55,65,81,0.4); }
     .res-line.highlight { color: var(--accent-gold); font-weight: bold; font-size: 15px; }
-    .res-total { font-size: 18px; font-weight: 800; color: var(--accent-green); border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; }
+    .res-total { font-size: 20px; font-weight: 900; color: var(--accent-green); border-top: 2px solid var(--border-color); padding-top: 12px; margin-top: 10px; }
 
-    /* TABLA */
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border-color); }
-    th { background: #010409; color: var(--accent-gold); font-weight: 700; }
-    .prod-img { width: 45px; height: 45px; object-fit: cover; border-radius: 6px; background: #21262d; }
+    /* TABLAS */
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+    th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th { background: #030712; color: var(--accent-gold); font-weight: 700; }
+    .prod-img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; background: #1f2937; }
 
-    /* CATÁLOGO */
-    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-    .prod-card { background: #010409; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; text-align: center; }
-    .prod-card img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; }
-    .price-tag { color: var(--accent-green); font-weight: 800; font-size: 16px; }
-    .badge-cat { background: #1f6beb; color: #cae8ff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; display: inline-block; margin-top: 4px; }
+    /* CATÁLOGOS */
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; }
+    .prod-card { background: #030712; border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center; transition: transform 0.2s; }
+    .prod-card:hover { transform: translateY(-2px); border-color: var(--accent-gold); }
+    .prod-card img { width: 100%; height: 110px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; background: #1f2937; }
+    .price-tag { color: var(--accent-green); font-weight: 800; font-size: 17px; margin-top: 6px; }
+    .badge-cat { background: #1e40af; color: #93c5fd; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; display: inline-block; margin-top: 6px; }
   </style>
 </head>
 <body>
@@ -107,50 +117,50 @@
     <div class="header-brand">
       <div class="header-logo-small">WD</div>
       <div>
-        <div class="brand-title">El Mundo del PVC</div>
-        <div class="brand-sub">La Concordia, San Cristóbal</div>
+        <div class="brand-title">World Store - El Mundo del PVC</div>
+        <div class="brand-sub">La Concordia, San Cristóbal • Mayor y Detal</div>
       </div>
     </div>
-    <div style="font-size: 12px; color: var(--accent-gold); font-weight: 700;">Sistema Activo</div>
+    <div style="font-size: 13px; color: var(--accent-green); font-weight: 800; background: rgba(16,185,129,0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(16,185,129,0.3);">🟢 Sistema En Línea</div>
   </div>
 
-  <!-- PESTAÑAS -->
+  <!-- NAVEGACIÓN DE PESTAÑAS -->
   <div class="nav-tabs">
-    <div class="tab-btn active" onclick="mostrarPestana('tab-cotizador', this)">Cotizador PVC</div>
-    <div class="tab-btn" onclick="mostrarPestana('tab-detal', this)">Venta Detal</div>
-    <div class="tab-btn" onclick="mostrarPestana('tab-almayor', this)">Precios Mayor</div>
-    <div class="tab-btn" onclick="mostrarPestana('tab-inventario', this)">Inventario</div>
-    <div class="tab-btn" onclick="mostrarPestana('tab-gastos', this)">Gastos</div>
+    <div class="tab-btn active" onclick="cambiarPestana('tab-cotizador', this)">📐 Cotizador PVC</div>
+    <div class="tab-btn" onclick="cambiarPestana('tab-detal', this)">🏷️ Venta Detal</div>
+    <div class="tab-btn" onclick="cambiarPestana('tab-almayor', this)">📦 Precios Mayor</div>
+    <div class="tab-btn" onclick="cambiarPestana('tab-inventario', this)">📋 Inventario / Catálogo</div>
+    <div class="tab-btn" onclick="cambiarPestana('tab-gastos', this)">💰 Gastos Operativos</div>
   </div>
 
-  <!-- 1. COTIZADOR POR M2 -->
+  <!-- 1. COTIZADOR DE CIELO RASO -->
   <div id="tab-cotizador" class="tab-content active">
     <div class="card">
-      <h3>Calculadora de Cielo Raso en PVC</h3>
+      <h3>📐 Calculadora Profesional de Cielo Raso en PVC</h3>
       
-      <label style="font-size: 13px; font-weight: 700; color: var(--accent-gold);">Ingreso de Superficie:</label>
+      <label>Modo de Ingreso de Superficie:</label>
       <select id="cot-modo" onchange="cambiarModoCotizador()">
         <option value="m2">Directo por Metros Cuadrados (m²)</option>
         <option value="medidas">Por Medidas (Ancho x Largo en metros)</option>
       </select>
 
       <div id="box-m2">
-        <label style="font-size: 13px;">Metros Cuadrados Totales (m²):</label>
+        <label>Metros Cuadrados Totales (m²):</label>
         <input type="number" id="cot-m2-directo" placeholder="Ej: 30" step="0.1">
       </div>
 
       <div id="box-medidas" style="display: none;" class="grid-2">
         <div>
-          <label style="font-size: 13px;">Ancho (m):</label>
+          <label>Ancho (m):</label>
           <input type="number" id="cot-ancho" placeholder="Ej: 5.0" step="0.01">
         </div>
         <div>
-          <label style="font-size: 13px;">Largo (m):</label>
+          <label>Largo (m):</label>
           <input type="number" id="cot-largo" placeholder="Ej: 6.0" step="0.01">
         </div>
       </div>
 
-      <label style="font-size: 13px; font-weight: 700; color: var(--accent-gold);">Modelo / Color de Lámina:</label>
+      <label>Modelo / Color de Lámina:</label>
       <select id="cot-tipo-color" onchange="actualizarPrecioTipo()">
         <option value="11.00">Blanco / Cedro Liso / Claros ($11.00 / m²)</option>
         <option value="12.50">Laminado Oscuro / Black / Texturizado ($12.50 / m²)</option>
@@ -158,35 +168,35 @@
 
       <div class="grid-2">
         <div>
-          <label style="font-size: 13px;">Costo m² Material ($):</label>
+          <label>Costo m² Material ($):</label>
           <input type="number" id="cot-precio-m2" value="11.00" step="0.5">
         </div>
         <div>
-          <label style="font-size: 13px;">Mano de Obra ($):</label>
+          <label>Mano de Obra ($):</label>
           <input type="number" id="cot-mano-obra" value="0" placeholder="Ej: 50">
         </div>
       </div>
 
       <div class="grid-2">
         <div>
-          <label style="font-size: 13px;">Flete / Transporte ($):</label>
+          <label>Flete / Transporte ($):</label>
           <input type="number" id="cot-flete" value="0" placeholder="Ej: 10">
         </div>
         <div>
-          <label style="font-size: 13px;">Adicionales ($):</label>
+          <label>Adicionales ($):</label>
           <input type="number" id="cot-extra-monto" value="0" placeholder="0.00">
         </div>
       </div>
 
-      <label style="font-size: 13px;">Descripción de Adicionales:</label>
+      <label>Descripción de Adicionales:</label>
       <input type="text" id="cot-extra-desc" placeholder="Ej: 2 Silicones Neutros + 4 Spots LED">
 
       <button class="btn-green" onclick="calcularCotizacion()">Calcular Presupuesto Completo</button>
 
       <div id="cot-resultado" class="results-box" style="display: none;">
-        <h4 style="color: var(--accent-gold); font-size: 15px; margin-bottom: 10px;">Presupuesto y Materiales Requeridos</h4>
+        <h4 style="color: var(--accent-gold); font-size: 16px; margin-bottom: 12px;">📋 Desglose Exacto para el Cliente</h4>
         <div id="cot-desglose"></div>
-        <button class="btn-gold" style="margin-top: 14px;" onclick="copiarWhatsApp()">Copiar Presupuesto para WhatsApp 📲</button>
+        <button class="btn-gold" style="margin-top: 16px;" onclick="copiarWhatsApp()">Copiar Presupuesto para WhatsApp 📲</button>
       </div>
     </div>
   </div>
@@ -194,7 +204,8 @@
   <!-- 2. CATÁLOGO VENTA DETAL -->
   <div id="tab-detal" class="tab-content">
     <div class="card">
-      <h3>Catálogo de Productos al Detal</h3>
+      <h3>🏷️ Catálogo de Precios al Detal</h3>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Visualiza todos los productos con su precio al detal actualizado para clientes individuales.</p>
       <div id="detal-catalog" class="catalog-grid"></div>
     </div>
   </div>
@@ -202,66 +213,65 @@
   <!-- 3. PRECIOS AL MAYOR -->
   <div id="tab-almayor" class="tab-content">
     <div class="card">
-      <h3>Catálogo de Precios al Mayor</h3>
+      <h3>📦 Catálogo de Precios al Mayor</h3>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Tarifas especiales para distribuidores, instaladores y compras al mayor en World Store.</p>
       <div id="mayor-catalog" class="catalog-grid"></div>
     </div>
   </div>
 
-  <!-- 4. INVENTARIO -->
+  <!-- 4. INVENTARIO Y GESTIÓN DE PRODUCTOS -->
   <div id="tab-inventario" class="tab-content">
     <div class="card">
-      <h3>Agregar Nuevo Material al Inventario</h3>
-      <input type="text" id="prod-nombre" placeholder="Nombre (Ej: Lámina PVC Blanco Acanalado Gris 5.95m)">
-
+      <h3>📋 Agregar / Registrar Nuevo Producto o Material</h3>
       <div class="grid-2">
         <div>
-          <label style="font-size: 13px;">Categoría:</label>
+          <label>Nombre / Modelo / Código:</label>
+          <input type="text" id="prod-nombre" placeholder="Ej: Lámina PVC Blanco Acanalado Gris 5.95m">
+        </div>
+        <div>
+          <label>Categoría:</label>
           <select id="prod-categoria">
             <option value="Lámina PVC">Lámina PVC (5.95m x 0.30m)</option>
             <option value="Panel WPC">Panel WPC Decorativo</option>
             <option value="Lámina UV">Lámina UV Mármol</option>
             <option value="Estructura / Perfil">Estructura / Perfiles</option>
-            <option value="Insumos / Silicones">Silicones / Pegamento / Tornillos</option>
+            <option value="Insumos / Silicones">Silicones / Adhesivos / Tornillos</option>
           </select>
-        </div>
-        <div>
-          <label style="font-size: 13px;">Stock (Unidades):</label>
-          <input type="number" id="prod-stock" placeholder="0">
         </div>
       </div>
 
       <div class="grid-3">
         <div>
-          <label style="font-size: 13px;">Precio Detal ($):</label>
+          <label>Precio Detal ($):</label>
           <input type="number" id="prod-precio-detal" placeholder="0.00" step="0.01">
         </div>
         <div>
-          <label style="font-size: 13px;">Precio Mayor ($):</label>
+          <label>Precio Mayor ($):</label>
           <input type="number" id="prod-precio-mayor" placeholder="0.00" step="0.01">
         </div>
         <div>
-          <label style="font-size: 13px;">Costo ($):</label>
-          <input type="number" id="prod-costo" placeholder="0.00" step="0.01">
+          <label>Stock (Unidades):</label>
+          <input type="number" id="prod-stock" placeholder="0">
         </div>
       </div>
 
-      <label style="font-size: 13px;">URL de Foto del Producto:</label>
-      <input type="text" id="prod-foto" placeholder="https://ejemplo.com/foto.jpg">
+      <label>URL de Imagen del Producto:</label>
+      <input type="text" id="prod-foto" placeholder="https://ejemplo.com/foto-producto.jpg">
 
       <button class="btn-green" onclick="guardarProducto()">Guardar Producto en Inventario</button>
     </div>
 
     <div class="card">
-      <h3>Inventario de Materiales</h3>
+      <h3>📋 Inventario Actual de Materiales</h3>
       <div style="overflow-x: auto;">
         <table>
           <thead>
             <tr>
               <th>Foto</th>
-              <th>Nombre / Modelo</th>
+              <th>Descripción / Modelo</th>
               <th>Categoría</th>
-              <th>Detal</th>
-              <th>Mayor</th>
+              <th>Detal ($)</th>
+              <th>Mayor ($)</th>
               <th>Stock</th>
               <th>Acción</th>
             </tr>
@@ -272,17 +282,23 @@
     </div>
   </div>
 
-  <!-- 5. GASTOS -->
+  <!-- 5. GASTOS OPERATIVOS -->
   <div id="tab-gastos" class="tab-content">
     <div class="card">
-      <h3>Control de Gastos Operativos</h3>
+      <h3>💰 Control de Gastos Operativos y Operaciones</h3>
       <div class="grid-2">
-        <input type="text" id="gasto-desc" placeholder="Concepto (Ej: Alquiler Local, Flete)">
-        <input type="number" id="gasto-monto" placeholder="Monto ($)">
+        <div>
+          <label>Concepto del Gasto:</label>
+          <input type="text" id="gasto-desc" placeholder="Ej: Alquiler, Flete, Publicidad">
+        </div>
+        <div>
+          <label>Monto ($):</label>
+          <input type="number" id="gasto-monto" placeholder="0.00" step="0.01">
+        </div>
       </div>
-      <button class="btn-green" onclick="agregarGasto()">Registrar Gasto</button>
+      <button class="btn-green" onclick="agregarGasto()">Registrar Gasto Operativo</button>
 
-      <table style="margin-top: 16px;">
+      <table style="margin-top: 20px;">
         <thead>
           <tr>
             <th>Concepto</th>
@@ -292,40 +308,54 @@
         </thead>
         <tbody id="tabla-gastos"></tbody>
       </table>
-      <div style="margin-top: 12px; text-align: right; font-weight: 800; color: var(--accent-red); font-size: 16px;" id="total-gastos">
+      <div style="margin-top: 14px; text-align: right; font-weight: 900; color: var(--accent-red); font-size: 18px;" id="total-gastos">
         Total Gastos: $0.00
       </div>
     </div>
   </div>
 
   <script>
+    // INICIALIZACIÓN AL CARGAR LA PÁGINA
     window.onload = function() {
       renderInventario();
       renderDetal();
       renderMayor();
+      renderGastos();
     };
 
-    function mostrarPestana(tabId, el) {
-      document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      document.getElementById(tabId).classList.add("active");
-      el.classList.add("active");
+    // CONTROL DE PESTAÑAS (ROBUSTO Y GARANTIZADO)
+    function cambiarPestana(tabId, el) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(t => t.classList.remove('active'));
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      if (el) {
+        el.classList.add('active');
+      }
     }
 
+    // BASE DE DATOS INICIAL DE PRODUCTOS (WORLD STORE)
     let productos = [
-      { id: 1, nombre: "Lámina PVC Blanco Acanalado Gris (5.95m)", categoria: "Lámina PVC", detal: 13.00, mayor: 11.00, costo: 9.00, stock: 100, foto: "" },
-      { id: 2, nombre: "Lámina PVC Black / Cedro Laminado (5.95m)", categoria: "Lámina PVC", detal: 14.50, mayor: 12.50, costo: 10.50, stock: 80, foto: "" },
-      { id: 3, nombre: "Panel WPC Interior Roble (2.90m)", categoria: "Panel WPC", detal: 12.00, mayor: 9.50, costo: 7.00, stock: 50, foto: "" },
-      { id: 4, nombre: "Lámina UV Mármol Blanco (1.22m x 2.44m)", categoria: "Lámina UV", detal: 35.00, mayor: 29.00, costo: 22.00, stock: 30, foto: "" },
-      { id: 5, nombre: "Cornisa PVC (5.95m)", categoria: "Estructura / Perfil", detal: 6.00, mayor: 4.50, costo: 3.00, stock: 90, foto: "" },
-      { id: 6, nombre: "Perfil Omega Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, costo: 1.20, stock: 200, foto: "" },
-      { id: 7, nombre: "Perfil Vigueta Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, costo: 1.30, stock: 150, foto: "" },
-      { id: 8, nombre: "Perfil Ángulo Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, costo: 1.10, stock: 180, foto: "" },
-      { id: 9, nombre: "Silicón Neutro Blanco / Transparente", categoria: "Insumos / Silicones", detal: 4.50, mayor: 3.50, costo: 2.20, stock: 60, foto: "" }
+      { id: 1, nombre: "Lámina PVC Blanco Acanalado Gris (5.95m)", categoria: "Lámina PVC", detal: 13.00, mayor: 11.00, stock: 120, foto: "" },
+      { id: 2, nombre: "Lámina PVC Black / Cedro Laminado (5.95m)", categoria: "Lámina PVC", detal: 14.50, mayor: 12.50, stock: 90, foto: "" },
+      { id: 3, nombre: "Panel WPC Interior Decorativo Roble (2.90m)", categoria: "Panel WPC", detal: 12.00, mayor: 9.50, stock: 60, foto: "" },
+      { id: 4, nombre: "Lámina UV Mármol Blanco Brillante (1.22m x 2.44m)", categoria: "Lámina UV", detal: 35.00, mayor: 29.00, stock: 35, foto: "" },
+      { id: 5, nombre: "Cornisa PVC Decorativa (5.95m)", categoria: "Estructura / Perfil", detal: 6.00, mayor: 4.50, stock: 100, foto: "" },
+      { id: 6, nombre: "Perfil Omega Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, stock: 250, foto: "" },
+      { id: 7, nombre: "Perfil Vigueta Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, stock: 200, foto: "" },
+      { id: 8, nombre: "Perfil Ángulo Galvanizado (2.40m)", categoria: "Estructura / Perfil", detal: 3.00, mayor: 2.20, stock: 180, foto: "" },
+      { id: 9, nombre: "Silicón Neutro Transparente / Blanco", categoria: "Insumos / Silicones", detal: 4.50, mayor: 3.50, stock: 75, foto: "" }
     ];
 
     let gastos = [];
 
+    // CAMBIO DE MODO COTIZADOR (M2 vs MEDIDAS)
     function cambiarModoCotizador() {
       const modo = document.getElementById("cot-modo").value;
       if (modo === "m2") {
@@ -344,6 +374,7 @@
 
     let textoResumenWS = "";
 
+    // CÁLCULO DE PRESUPUESTO
     function calcularCotizacion() {
       const modo = document.getElementById("cot-modo").value;
       const precioM2 = parseFloat(document.getElementById("cot-precio-m2").value) || 11.00;
@@ -366,10 +397,11 @@
       }
 
       if (area <= 0) {
-        alert("Ingresa un valor válido de m² o dimensiones.");
+        alert("Por favor ingresa una superficie válida en metros cuadrados.");
         return;
       }
 
+      // FÓRMULA EXACTA: 0.60 láminas por m² (incluyendo desperdicio)
       const cantLaminas = Math.ceil(area * 0.60);
       const cantCornisas = Math.ceil(area * 0.17);
       const cantOmegas = Math.ceil(area * 0.60);
@@ -390,45 +422,9 @@
         <div class="res-line"><span>Perfil Ángulos (2.40m):</span> <span>${cantAngulos} uds</span></div>
         <div class="res-line"><span>Tornillos de Lámina:</span> <span>${cantTornillosLamina} pcs</span></div>
         <div class="res-line"><span>Tornillos de Estructura:</span> <span>${cantTornillosEstructura} pcs</span></div>
-        <hr style="border-color: var(--border-color); margin: 8px 0;">
+        <hr style="border-color: var(--border-color); margin: 10px 0;">
         <div class="res-line"><span>Subtotal Materiales ($${precioM2.toFixed(2)}/m²):</span> <span>$${costoMaterialPVC.toFixed(2)}</span></div>
         ${manoObra > 0 ? <div class="res-line"><span>Mano de Obra:</span> <span>$${manoObra.toFixed(2)}</span></div> : ''}
         ${flete > 0 ? <div class="res-line"><span>Flete / Transporte:</span> <span>$${flete.toFixed(2)}</span></div> : ''}
         ${extraMonto > 0 ? <div class="res-line"><span>${extraDesc}:</span> <span>$${extraMonto.toFixed(2)}</span></div> : ''}
-        <div class="res-line res-total"><span>TOTAL PRESUPUESTO:</span> <span>$${totalGeneral.toFixed(2)}</span></div>
-      `;
-
-      textoResumenWS = 📌 *PRESUPUESTO CIELO RASO PVC - EL MUNDO DEL PVC*\n +
-        📐 *Proyecto:* ${descMedida}\n +
-        📦 *Desglose Exacto de Materiales:*\n +
-        ` • Láminas PVC (5.95m x 0.30m): ${cantLaminas} uds\n` +
-        ` • Cornisas PVC (5.95m): ${cantCornisas} uds\n` +
-        ` • Perfil Omegas (2.40m): ${cantOmegas} uds\n` +
-        ` • Perfil Viguetas (2.40m): ${cantViguetas} uds\n` +
-        ` • Perfil Ángulos (2.40m): ${cantAngulos} uds\n` +
-        ` • Tornillos Lámina: ${cantTornillosLamina} pcs\n` +
-        ` • Tornillos Estructura: ${cantTornillosEstructura} pcs\n` +
-        (extraMonto > 0 ? ` • ${extraDesc}: $${extraMonto.toFixed(2)}\n` : '') +
-        (flete > 0 ? ` • Flete: $${flete.toFixed(2)}\n` : '') +
-        💰 *TOTAL PRESUPUESTO: $${totalGeneral.toFixed(2)}*\n\n +
-        📍 *El Mundo del PVC* - La Concordia, San Cristóbal.;
-
-      document.getElementById("cot-desglose").innerHTML = html;
-      document.getElementById("cot-resultado").style.display = "block";
-    }
-
-    function copiarWhatsApp() {
-      navigator.clipboard.writeText(textoResumenWS);
-      alert("¡Presupuesto copiado al portapapeles! Listo para enviar por WhatsApp.");
-    }
-
-    function renderInventario() {
-      const tbody = document.getElementById("tabla-inventario");
-      if(!tbody) return;
-      tbody.innerHTML = "";
-      productos.forEach(p => {
-        const imgTag = p.foto ? <img src="${p.foto}" class="prod-img"> : <div class="prod-img" style="display:flex;align-items:center;justify-content:center;font-size:10px;color:#8b949e;">Sin foto</div>;
-        tbody.innerHTML += `
-          <tr>
-            <td>${imgTag}</td>
-            <td><strong>${p.nombre}</strong
+        <div class="res-line res-total"><span>TOTAL PRESUPUESTO:<
